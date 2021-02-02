@@ -30,8 +30,8 @@
         <Label x:Name="image4hash" Content="" HorizontalAlignment="Left" Height="26" Margin="655,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image5hash" Content="" HorizontalAlignment="Left" Height="26" Margin="844,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image6hash" Content="" HorizontalAlignment="Left" Height="26" Margin="1019,406,0,0" VerticalAlignment="Top" Width="148"/>
-        <Button Content="Images" HorizontalAlignment="Left" Height="31" Margin="1193,84,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click_1"/>
-        <Button Content="Settings" HorizontalAlignment="Left" Height="31" Margin="1193,48,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click_2"/>
+        <Button Content="Images" HorizontalAlignment="Left" Height="31" Margin="1193,84,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click_1" BorderBrush="{x:Null}" Foreground="White" Background="#FF2C2C2C"/>
+        <Button Content="Settings" HorizontalAlignment="Left" Height="31" Margin="1193,48,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click_2" BorderBrush="{x:Null}" Foreground="White" Background="#FF2C2C2C"/>
         <Label x:Name="image7hash" Content="" HorizontalAlignment="Left" Height="26" Margin="112,697,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image8hash" Content="" HorizontalAlignment="Left" Height="26" Margin="298,697,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image9hash" Content="" HorizontalAlignment="Left" Height="26" Margin="475,697,0,0" VerticalAlignment="Top" Width="148"/>
@@ -47,13 +47,13 @@
         <Button x:Name="checkagain" Content="Re-Check Hashes" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="checkagain_Click"/>
         <Button x:Name="calchashesbutton" Content="Check Differences" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="calchashesbutton_Click"/>
         <Button x:Name="retest" Content="Start Over" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="retest_Click"/>
-        <Button x:Name="manualcheck" Content="Manually Recheck Hashes" HorizontalAlignment="Left" Height="25" Margin="1040,51,0,0" VerticalAlignment="Top" Width="148" Click="retest_Click_1"/>
+        <Button x:Name="manualcheck" Content="Manually Recheck Hashes" HorizontalAlignment="Left" Height="25" Margin="1040,51,0,0" VerticalAlignment="Top" Width="148" Click="retest_Click_1" Background="#FF2C2C2C" Foreground="White" BorderBrush="{x:Null}"/>
         <Label x:Name="similaritytext1" Content="" HorizontalAlignment="Left" Height="26" Margin="102,437,0,0" VerticalAlignment="Top" Width="163"/>
         <Label x:Name="similaritytext2" Content="" HorizontalAlignment="Left" Height="26" Margin="288,437,0,0" VerticalAlignment="Top" Width="158" RenderTransformOrigin="0.565,0.5"/>
         <Label x:Name="similaritytext3" Content="" HorizontalAlignment="Left" Height="26" Margin="474,437,0,0" VerticalAlignment="Top" Width="149" RenderTransformOrigin="0.565,0.5"/>
         <Label x:Name="similaritytext4" Content="" HorizontalAlignment="Left" Height="26" Margin="655,442,0,0" VerticalAlignment="Top" Width="138" RenderTransformOrigin="0.565,0.5"/>
         <Label x:Name="similaritytext5" Content="" HorizontalAlignment="Left" Height="26" Margin="844,442,0,0" VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.565,0.5"/>
         <Label x:Name="similaritytext6" Content="" HorizontalAlignment="Left" Height="26" Margin="1040,442,0,0" VerticalAlignment="Top" Width="128" RenderTransformOrigin="0.51,0.577"/>
-        <Button x:Name="outputfilebutton" Content="Open Output File" HorizontalAlignment="Left" Visibility="Hidden" Height="25" Margin="1084,81,0,0" VerticalAlignment="Top" Width="104" Click="outputfilebutton_Click"/>
+        <Button x:Name="outputfilebutton" Content="Open Output File" HorizontalAlignment="Left" Visibility="Hidden" Height="25" Margin="1084,81,0,0" VerticalAlignment="Top" Width="104" Click="outputfilebutton_Click" BorderBrush="{x:Null}" Foreground="White" Background="#FF2C2C2C"/>
     </Grid>
 </Window>
