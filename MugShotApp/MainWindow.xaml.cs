@@ -43,6 +43,13 @@ namespace MugShotApp
         int imagerange = 13;
         int bluramount = 0;
 
+        string randomblurimagenum1 = "";
+        string randomblurimagenum2 = "";
+        string randomblurimagenum3 = "";
+        string randomblurimagenum4 = "";
+        string randomblurimagenum5 = "";
+        string randomblurimagenum6 = "";
+
         void getprefs ()
         {
             if (Directory.Exists(@"C:\ProgramData\MugShotApp\"))
@@ -220,23 +227,17 @@ namespace MugShotApp
                 {
                     Console.WriteLine("(DifferenceHash)");
 
-                    var hashAlgorithm = new DifferenceHash();
-
-                    string filename = "your filename";
-                    var stream = File.OpenRead(filename);
-
-                    ulong imageHash = hashAlgorithm.Hash(stream);
+                    DifferenceHash();
+                    hashmodetext.Content = "Hashing Mode: DifferenceHash";
+                    statustext.Content = "Getting hashes using mode Difference..";
                 }
                 else if (hashmethod == 2)
                 {
                     Console.WriteLine("(AverageHash)");
 
-                    var hashAlgorithm = new AverageHash();
-
-                    string filename = "your filename";
-                    var stream = File.OpenRead(filename);
-
-                    ulong imageHash = hashAlgorithm.Hash(stream);
+                    AverageHash();
+                    hashmodetext.Content = "Hashing Mode: AverageHash";
+                    statustext.Content = "Getting hashes using mode Average..";
                 }
                 else
                 {
@@ -269,11 +270,605 @@ namespace MugShotApp
 
         void comparehashes ()
         {
+            calchashesbutton.Visibility = Visibility.Hidden;
+
             statustext.Content = "Comparing image hashes against originals..";
 
+            if (numofimagesblur == 1)
+            {
+                var hashAlgorithm = new AverageHash();
+
+                string filename = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png";
+                string filename2 = @"C:\ProgramData\MugShotApp\images\1_blured.png";
+
+                var stream = File.OpenRead(filename);
+                Console.WriteLine(filename);
+                ulong imageHash = hashAlgorithm.Hash(stream);
+
+                var stream2 = File.OpenRead(filename2);
+                Console.WriteLine(filename2);
+                ulong imageHash2 = hashAlgorithm.Hash(stream2);
 
 
+                double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
+
+                similaritytext1.Content = percentageImageSimilarity.ToString();
+
+                statustext.Content = "Comparison completed.";
+
+                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
+                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
+            }
+            else if (numofimagesblur == 2) {
+                var hashAlgorithm = new AverageHash();
+
+                string filename = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png";
+                string filename2 = @"C:\ProgramData\MugShotApp\images\1_blured.png";
+                string filename3 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png";
+                string filename4 = @"C:\ProgramData\MugShotApp\images\2_blured.png";
+
+                var stream = File.OpenRead(filename);
+                Console.WriteLine(filename);
+                ulong imageHash = hashAlgorithm.Hash(stream);
+                var stream2 = File.OpenRead(filename2);
+                Console.WriteLine(filename2);
+                ulong imageHash2 = hashAlgorithm.Hash(stream2);
+                double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
+                similaritytext1.Content = percentageImageSimilarity.ToString();
+
+                var stream3 = File.OpenRead(filename3);
+                ulong imageHash3 = hashAlgorithm.Hash(stream3);
+                var stream4 = File.OpenRead(filename4);
+                ulong imageHash4 = hashAlgorithm.Hash(stream4);
+                double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
+                similaritytext2.Content = percentageImageSimilarity2.ToString();
+
+
+                statustext.Content = "Comparison completed.";
+
+                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
+                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
+                image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
+                image8.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
+            }
+            else if (numofimagesblur == 3)
+            {
+                var hashAlgorithm = new AverageHash();
+
+                string filename = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png";
+                string filename2 = @"C:\ProgramData\MugShotApp\images\1_blured.png";
+                string filename3 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png";
+                string filename4 = @"C:\ProgramData\MugShotApp\images\2_blured.png";
+                string filename5 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png";
+                string filename6 = @"C:\ProgramData\MugShotApp\images\3_blured.png";
+
+                var stream = File.OpenRead(filename);
+                Console.WriteLine(filename);
+                ulong imageHash = hashAlgorithm.Hash(stream);
+                var stream2 = File.OpenRead(filename2);
+                Console.WriteLine(filename2);
+                ulong imageHash2 = hashAlgorithm.Hash(stream2);
+                double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
+                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+
+                var stream3 = File.OpenRead(filename3);
+                ulong imageHash3 = hashAlgorithm.Hash(stream3);
+                var stream4 = File.OpenRead(filename4);
+                ulong imageHash4 = hashAlgorithm.Hash(stream4);
+                double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
+                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+
+                var stream5 = File.OpenRead(filename5);
+                ulong imageHash5 = hashAlgorithm.Hash(stream5);
+                var stream6 = File.OpenRead(filename6);
+                ulong imageHash6 = hashAlgorithm.Hash(stream6);
+                double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
+                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+
+                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
+                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
+                image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
+                image8.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
+                image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png"));
+                image9.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
+
+                statustext.Content = "Comparison completed.";
+            }
+            else if (numofimagesblur == 4)
+            {
+                var hashAlgorithm = new AverageHash();
+
+                string filename = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png";
+                string filename2 = @"C:\ProgramData\MugShotApp\images\1_blured.png";
+                string filename3 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png";
+                string filename4 = @"C:\ProgramData\MugShotApp\images\2_blured.png";
+                string filename5 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png";
+                string filename6 = @"C:\ProgramData\MugShotApp\images\3_blured.png";
+                string filename7 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png";
+                string filename8 = @"C:\ProgramData\MugShotApp\images\4_blured.png";
+
+                var stream = File.OpenRead(filename);
+                Console.WriteLine(filename);
+                ulong imageHash = hashAlgorithm.Hash(stream);
+                var stream2 = File.OpenRead(filename2);
+                Console.WriteLine(filename2);
+                ulong imageHash2 = hashAlgorithm.Hash(stream2);
+                double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
+                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+
+                var stream3 = File.OpenRead(filename3);
+                ulong imageHash3 = hashAlgorithm.Hash(stream3);
+                var stream4 = File.OpenRead(filename4);
+                ulong imageHash4 = hashAlgorithm.Hash(stream4);
+                double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
+                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+
+                var stream5 = File.OpenRead(filename5);
+                ulong imageHash5 = hashAlgorithm.Hash(stream5);
+                var stream6 = File.OpenRead(filename6);
+                ulong imageHash6 = hashAlgorithm.Hash(stream6);
+                double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
+                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+
+                var stream7 = File.OpenRead(filename7);
+                ulong imageHash7 = hashAlgorithm.Hash(stream7);
+                var stream8 = File.OpenRead(filename8);
+                ulong imageHash8 = hashAlgorithm.Hash(stream8);
+                double percentageImageSimilarity4 = CompareHash.Similarity(imageHash7, imageHash8);
+                similaritytext4.Content = percentageImageSimilarity4.ToString() + "%";
+
+
+                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
+                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
+                image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
+                image8.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
+                image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png"));
+                image9.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
+                image4.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png"));
+                image10.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\4_blured.png"));
+            }
+            else if (numofimagesblur == 5)
+            {
+                var hashAlgorithm = new AverageHash();
+
+                string filename = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png";
+                string filename2 = @"C:\ProgramData\MugShotApp\images\1_blured.png";
+                string filename3 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png";
+                string filename4 = @"C:\ProgramData\MugShotApp\images\2_blured.png";
+                string filename5 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png";
+                string filename6 = @"C:\ProgramData\MugShotApp\images\3_blured.png";
+                string filename7 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png";
+                string filename8 = @"C:\ProgramData\MugShotApp\images\4_blured.png";
+                string filename9 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum5 + ".png";
+                string filename10 = @"C:\ProgramData\MugShotApp\images\5_blured.png";
+
+                var stream = File.OpenRead(filename);
+                Console.WriteLine(filename);
+                ulong imageHash = hashAlgorithm.Hash(stream);
+                var stream2 = File.OpenRead(filename2);
+                Console.WriteLine(filename2);
+                ulong imageHash2 = hashAlgorithm.Hash(stream2);
+                double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
+                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+
+                var stream3 = File.OpenRead(filename3);
+                ulong imageHash3 = hashAlgorithm.Hash(stream3);
+                var stream4 = File.OpenRead(filename4);
+                ulong imageHash4 = hashAlgorithm.Hash(stream4);
+                double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
+                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+
+                var stream5 = File.OpenRead(filename5);
+                ulong imageHash5 = hashAlgorithm.Hash(stream5);
+                var stream6 = File.OpenRead(filename6);
+                ulong imageHash6 = hashAlgorithm.Hash(stream6);
+                double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
+                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+
+                var stream7 = File.OpenRead(filename7);
+                ulong imageHash7 = hashAlgorithm.Hash(stream7);
+                var stream8 = File.OpenRead(filename8);
+                ulong imageHash8 = hashAlgorithm.Hash(stream8);
+                double percentageImageSimilarity4 = CompareHash.Similarity(imageHash7, imageHash8);
+                similaritytext4.Content = percentageImageSimilarity4.ToString() + "%";
+
+                var stream9 = File.OpenRead(filename9);
+                ulong imageHash9 = hashAlgorithm.Hash(stream9);
+                var stream10 = File.OpenRead(filename10);
+                ulong imageHash10 = hashAlgorithm.Hash(stream10);
+                double percentageImageSimilarity5 = CompareHash.Similarity(imageHash9, imageHash10);
+                similaritytext5.Content = percentageImageSimilarity5.ToString() + "%";
+
+
+                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
+                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
+                image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
+                image8.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
+                image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png"));
+                image9.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
+                image4.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png"));
+                image10.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\4_blured.png"));
+                image5.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum5 + ".png"));
+                image11.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\5_blured.png"));
+            }
+            else if (numofimagesblur == 6)
+            {
+                var hashAlgorithm = new AverageHash();
+
+                string filename = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png";
+                string filename2 = @"C:\ProgramData\MugShotApp\images\1_blured.png";
+                string filename3 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png";
+                string filename4 = @"C:\ProgramData\MugShotApp\images\2_blured.png";
+                string filename5 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png";
+                string filename6 = @"C:\ProgramData\MugShotApp\images\3_blured.png";
+                string filename7 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png";
+                string filename8 = @"C:\ProgramData\MugShotApp\images\4_blured.png";
+                string filename9 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum5 + ".png";
+                string filename10 = @"C:\ProgramData\MugShotApp\images\5_blured.png";
+                string filename11 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum6 + ".png";
+                string filename12 = @"C:\ProgramData\MugShotApp\images\6_blured.png";
+
+                var stream = File.OpenRead(filename);
+                Console.WriteLine(filename);
+                ulong imageHash = hashAlgorithm.Hash(stream);
+                var stream2 = File.OpenRead(filename2);
+                Console.WriteLine(filename2);
+                ulong imageHash2 = hashAlgorithm.Hash(stream2);
+                double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
+                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+
+                var stream3 = File.OpenRead(filename3);
+                ulong imageHash3 = hashAlgorithm.Hash(stream3);
+                var stream4 = File.OpenRead(filename4);
+                ulong imageHash4 = hashAlgorithm.Hash(stream4);
+                double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
+                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+
+                var stream5 = File.OpenRead(filename5);
+                ulong imageHash5 = hashAlgorithm.Hash(stream5);
+                var stream6 = File.OpenRead(filename6);
+                ulong imageHash6 = hashAlgorithm.Hash(stream6);
+                double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
+                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+
+                var stream7 = File.OpenRead(filename7);
+                ulong imageHash7 = hashAlgorithm.Hash(stream7);
+                var stream8 = File.OpenRead(filename8);
+                ulong imageHash8 = hashAlgorithm.Hash(stream8);
+                double percentageImageSimilarity4 = CompareHash.Similarity(imageHash7, imageHash8);
+                similaritytext4.Content = percentageImageSimilarity4.ToString() + "%";
+
+                var stream9 = File.OpenRead(filename9);
+                ulong imageHash9 = hashAlgorithm.Hash(stream9);
+                var stream10 = File.OpenRead(filename10);
+                ulong imageHash10 = hashAlgorithm.Hash(stream10);
+                double percentageImageSimilarity5 = CompareHash.Similarity(imageHash9, imageHash10);
+                similaritytext5.Content = percentageImageSimilarity5.ToString() + "%";
+
+                var stream11 = File.OpenRead(filename11);
+                ulong imageHash11 = hashAlgorithm.Hash(stream11);
+                var stream12 = File.OpenRead(filename12);
+                ulong imageHash12 = hashAlgorithm.Hash(stream12);
+                double percentageImageSimilarity6 = CompareHash.Similarity(imageHash11, imageHash12);
+                similaritytext6.Content = percentageImageSimilarity6.ToString() + "%";
+
+                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
+                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
+                image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
+                image8.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
+                image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png"));
+                image9.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
+                image4.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png"));
+                image10.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\4_blured.png"));
+                image5.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum5 + ".png"));
+                image11.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\5_blured.png"));
+                image6.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum6 + ".png"));
+                image12.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\6_blured.png"));
+            }
+            else
+            {
+                var hashAlgorithm = new AverageHash();
+
+                string filename = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png";
+                string filename2 = @"C:\ProgramData\MugShotApp\images\1_blured.png";
+                string filename3 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png";
+                string filename4 = @"C:\ProgramData\MugShotApp\images\2_blured.png";
+                string filename5 = @"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png";
+                string filename6 = @"C:\ProgramData\MugShotApp\images\3_blured.png";
+
+                var stream = File.OpenRead(filename);
+                Console.WriteLine(filename);
+                ulong imageHash = hashAlgorithm.Hash(stream);
+                var stream2 = File.OpenRead(filename2);
+                Console.WriteLine(filename2);
+                ulong imageHash2 = hashAlgorithm.Hash(stream2);
+                double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
+                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+
+                var stream3 = File.OpenRead(filename3);
+                ulong imageHash3 = hashAlgorithm.Hash(stream3);
+                var stream4 = File.OpenRead(filename4);
+                ulong imageHash4 = hashAlgorithm.Hash(stream4);
+                double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
+                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+
+                var stream5 = File.OpenRead(filename5);
+                ulong imageHash5 = hashAlgorithm.Hash(stream5);
+                var stream6 = File.OpenRead(filename6);
+                ulong imageHash6 = hashAlgorithm.Hash(stream6);
+                double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
+                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+
+                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
+                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
+                image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
+                image8.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
+                image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png"));
+                image9.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
+
+                statustext.Content = "Comparison completed.";
+
+                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
+                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
+                image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
+                image8.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
+                image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png"));
+                image9.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
+            }
         }
+
+
+        async void AverageHash ()
+        {
+            Console.WriteLine("(AverageHash)");
+
+            int stopat = numperscreen + 1;
+
+            if (imagescountreal == stopat)
+            {
+
+                Console.WriteLine("Hashing completed.");
+                await Task.Delay(2000);
+                statustext.Content = "Hashing completed. Waiting for user interaction to blur..";
+                blurbutton.Visibility = Visibility.Visible;
+                imagescountreal = 1;
+            }
+
+            else
+            {
+                try
+                {
+                    var hashAlgorithm = new AverageHash();
+
+                    Random rnd = new Random();
+                    string numselected = rnd.Next(1, 13).ToString();
+                    string numrange = rnd.Next(1, imagerange).ToString();
+
+                    string filename = @"C:\ProgramData\MugShotApp\images\" + numrange + ".png";
+                    var stream = File.OpenRead(filename);
+                    Console.WriteLine(filename);
+                    ulong imageHash = hashAlgorithm.Hash(stream);
+
+                    if (imagescountreal == 1)
+                    {
+                        image1hash.Content = imageHash;
+                        image1.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 2)
+                    {
+                        image2hash.Content = imageHash;
+                        image2.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 3)
+                    {
+                        image3hash.Content = imageHash;
+                        image3.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 4)
+                    {
+                        image4hash.Content = imageHash;
+                        image4.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 5)
+                    {
+                        image5hash.Content = imageHash;
+                        image5.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 6)
+                    {
+                        image6hash.Content = imageHash;
+                        image6.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 7)
+                    {
+                        image7hash.Content = imageHash;
+                        image7.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 8)
+                    {
+                        image8hash.Content = imageHash;
+                        image8.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 9)
+                    {
+                        image9hash.Content = imageHash;
+                        image9.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 10)
+                    {
+                        image10hash.Content = imageHash;
+                        image10.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 11)
+                    {
+                        image11hash.Content = imageHash;
+                        image11.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                    else if (imagescountreal == 12)
+                    {
+                        image12hash.Content = imageHash;
+                        image12.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        AverageHash();
+                    }
+                }
+                catch
+                {
+                    statustext.Content = "Error: No images detected.";
+                    var win = new NeedToAddImages();
+                    win.Show();
+                }
+            }
+        }
+
+
+        async void DifferenceHash()
+        {
+            Console.WriteLine("(DifferenceHash)");
+
+            int stopat = numperscreen + 1;
+
+            if (imagescountreal == stopat)
+            {
+
+                Console.WriteLine("Hashing completed.");
+                await Task.Delay(2000);
+                statustext.Content = "Hashing completed. Waiting for user interaction to blur..";
+                blurbutton.Visibility = Visibility.Visible;
+                imagescountreal = 1;
+            }
+
+            else
+            {
+                try
+                {
+                    var hashAlgorithm = new DifferenceHash();
+
+                    Random rnd = new Random();
+                    string numselected = rnd.Next(1, 13).ToString();
+                    string numrange = rnd.Next(1, imagerange).ToString();
+
+                    string filename = @"C:\ProgramData\MugShotApp\images\" + numrange + ".png";
+                    var stream = File.OpenRead(filename);
+                    Console.WriteLine(filename);
+                    ulong imageHash = hashAlgorithm.Hash(stream);
+
+                    if (imagescountreal == 1)
+                    {
+                        image1hash.Content = imageHash;
+                        image1.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 2)
+                    {
+                        image2hash.Content = imageHash;
+                        image2.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 3)
+                    {
+                        image3hash.Content = imageHash;
+                        image3.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 4)
+                    {
+                        image4hash.Content = imageHash;
+                        image4.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 5)
+                    {
+                        image5hash.Content = imageHash;
+                        image5.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 6)
+                    {
+                        image6hash.Content = imageHash;
+                        image6.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 7)
+                    {
+                        image7hash.Content = imageHash;
+                        image7.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 8)
+                    {
+                        image8hash.Content = imageHash;
+                        image8.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 9)
+                    {
+                        image9hash.Content = imageHash;
+                        image9.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 10)
+                    {
+                        image10hash.Content = imageHash;
+                        image10.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 11)
+                    {
+                        image11hash.Content = imageHash;
+                        image11.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                    else if (imagescountreal == 12)
+                    {
+                        image12hash.Content = imageHash;
+                        image12.Source = new BitmapImage(new Uri(filename));
+                        imagescountreal++;
+                        DifferenceHash();
+                    }
+                }
+                catch
+                {
+                    statustext.Content = "Error: No images detected.";
+                    var win = new NeedToAddImages();
+                    win.Show();
+                }
+            }
+        }
+
 
         async void PerceptualHash()
         {
@@ -412,7 +1007,10 @@ namespace MugShotApp
 
             if (numofimagesblur == 1)
             {
-                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\1.png");
+                Random rnd = new Random();
+                randomblurimagenum1 = rnd.Next(1, numperscreen).ToString();
+
+                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png");
                 bitmap = Blur(bitmap, bluramount);
                 bitmap.Save(@"C:\ProgramData\MugShotApp\images\1_blured.png");
 
@@ -420,34 +1018,37 @@ namespace MugShotApp
             }
             else if (numofimagesblur == 2)
             {
-                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\1.png");
+                Random rnd = new Random();
+                randomblurimagenum1 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum2 = rnd.Next(1, numperscreen).ToString();
+
+                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png");
                 bitmap = Blur(bitmap, bluramount);
                 bitmap.Save(@"C:\ProgramData\MugShotApp\images\1_blured.png");
 
-                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\2.png");
+                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png");
                 bitmap2 = Blur(bitmap2, bluramount);
                 bitmap2.Save(@"C:\ProgramData\MugShotApp\images\2_blured.png");
 
                 image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
                 image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
-
             }
             else if (numofimagesblur == 3)
             {
                 Random rnd = new Random();
-                int imageselector = rnd.Next(1, numperscreen);
-                int imageselector2 = rnd.Next(1, numperscreen);
-                int imageselector3 = rnd.Next(1, numperscreen);
+                randomblurimagenum1 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum2 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum3 = rnd.Next(1, numperscreen).ToString();
 
-                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + imageselector + ".png");
+                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png");
                 bitmap = Blur(bitmap, bluramount);
                 bitmap.Save(@"C:\ProgramData\MugShotApp\images\1_blured.png");
 
-                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + imageselector2 + ".png");
+                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png");
                 bitmap2 = Blur(bitmap2, bluramount);
                 bitmap2.Save(@"C:\ProgramData\MugShotApp\images\2_blured.png");
 
-                Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + imageselector3 + ".png");
+                Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png");
                 bitmap3 = Blur(bitmap3, bluramount);
                 bitmap3.Save(@"C:\ProgramData\MugShotApp\images\3_blured.png");
 
@@ -458,19 +1059,25 @@ namespace MugShotApp
 
             else if (numofimagesblur == 4)
             {
-                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\1.png");
+                Random rnd = new Random();
+                randomblurimagenum1 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum2 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum3 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum4 = rnd.Next(1, numperscreen).ToString();
+
+                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png");
                 bitmap = Blur(bitmap, bluramount);
                 bitmap.Save(@"C:\ProgramData\MugShotApp\images\1_blured.png");
 
-                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\2.png");
+                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png");
                 bitmap2 = Blur(bitmap2, bluramount);
                 bitmap2.Save(@"C:\ProgramData\MugShotApp\images\2_blured.png");
 
-                Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\3.png");
+                Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png");
                 bitmap3 = Blur(bitmap3, bluramount);
                 bitmap3.Save(@"C:\ProgramData\MugShotApp\images\3_blured.png");
 
-                Bitmap bitmap4 = new Bitmap(@"C:\ProgramData\MugShotApp\images\4.png");
+                Bitmap bitmap4 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png");
                 bitmap4 = Blur(bitmap4, bluramount);
                 bitmap4.Save(@"C:\ProgramData\MugShotApp\images\4_blured.png");
 
@@ -482,23 +1089,30 @@ namespace MugShotApp
 
             else if (numofimagesblur == 5)
             {
-                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\1.png");
+                Random rnd = new Random();
+                randomblurimagenum1 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum2 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum3 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum4 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum5 = rnd.Next(1, numperscreen).ToString();
+
+                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png");
                 bitmap = Blur(bitmap, bluramount);
                 bitmap.Save(@"C:\ProgramData\MugShotApp\images\1_blured.png");
 
-                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\2.png");
+                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png");
                 bitmap2 = Blur(bitmap2, bluramount);
                 bitmap2.Save(@"C:\ProgramData\MugShotApp\images\2_blured.png");
 
-                Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\3.png");
+                Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png");
                 bitmap3 = Blur(bitmap3, bluramount);
                 bitmap3.Save(@"C:\ProgramData\MugShotApp\images\3_blured.png");
 
-                Bitmap bitmap4 = new Bitmap(@"C:\ProgramData\MugShotApp\images\4.png");
+                Bitmap bitmap4 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png");
                 bitmap4 = Blur(bitmap4, bluramount);
                 bitmap4.Save(@"C:\ProgramData\MugShotApp\images\4_blured.png");
 
-                Bitmap bitmap5 = new Bitmap(@"C:\ProgramData\MugShotApp\images\5.png");
+                Bitmap bitmap5 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum5 + ".png");
                 bitmap5 = Blur(bitmap5, bluramount);
                 bitmap5.Save(@"C:\ProgramData\MugShotApp\images\5_blured.png");
 
@@ -511,27 +1125,35 @@ namespace MugShotApp
 
             else if (numofimagesblur == 6)
             {
-                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\1.png");
+                Random rnd = new Random();
+                randomblurimagenum1 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum2 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum3 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum4 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum5 = rnd.Next(1, numperscreen).ToString();
+                randomblurimagenum6 = rnd.Next(1, numperscreen).ToString();
+
+                Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png");
                 bitmap = Blur(bitmap, bluramount);
                 bitmap.Save(@"C:\ProgramData\MugShotApp\images\1_blured.png");
 
-                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\2.png");
+                Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png");
                 bitmap2 = Blur(bitmap2, bluramount);
                 bitmap2.Save(@"C:\ProgramData\MugShotApp\images\2_blured.png");
 
-                Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\3.png");
+                Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png");
                 bitmap3 = Blur(bitmap3, bluramount);
                 bitmap3.Save(@"C:\ProgramData\MugShotApp\images\3_blured.png");
 
-                Bitmap bitmap4 = new Bitmap(@"C:\ProgramData\MugShotApp\images\4.png");
+                Bitmap bitmap4 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum4 + ".png");
                 bitmap4 = Blur(bitmap4, bluramount);
                 bitmap4.Save(@"C:\ProgramData\MugShotApp\images\4_blured.png");
 
-                Bitmap bitmap5 = new Bitmap(@"C:\ProgramData\MugShotApp\images\5.png");
+                Bitmap bitmap5 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum5 + ".png");
                 bitmap5 = Blur(bitmap5, bluramount);
                 bitmap5.Save(@"C:\ProgramData\MugShotApp\images\5_blured.png");
 
-                Bitmap bitmap6 = new Bitmap(@"C:\ProgramData\MugShotApp\images\6.png");
+                Bitmap bitmap6 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum6 + ".png");
                 bitmap6 = Blur(bitmap6, bluramount);
                 bitmap6.Save(@"C:\ProgramData\MugShotApp\images\6_blured.png");
 
@@ -655,7 +1277,6 @@ namespace MugShotApp
 
             if (imagescountreal == stopat)
             {
-
                 Console.WriteLine("Re-Hashing completed.");
                 statustext.Content = "Re-Hashing completed.";
                 imagescountreal = 0;

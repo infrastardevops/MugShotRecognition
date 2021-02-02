@@ -46,5 +46,11 @@
         <Button x:Name="blurbutton" Content="Blur Images" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="Button_Click_3"/>
         <Button x:Name="checkagain" Content="Re-Check Hashes" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="checkagain_Click"/>
         <Button x:Name="calchashesbutton" Content="Check Differences" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="calchashesbutton_Click"/>
+        <Label x:Name="similaritytext1" Content="" HorizontalAlignment="Left" Height="26" Margin="138,442,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="similaritytext2" Content="" HorizontalAlignment="Left" Height="26" Margin="320,442,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.565,0.5"/>
+        <Label x:Name="similaritytext3" Content="" HorizontalAlignment="Left" Height="26" Margin="506,442,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.565,0.5"/>
+        <Label x:Name="similaritytext4" Content="" HorizontalAlignment="Left" Height="26" Margin="679,442,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.565,0.5"/>
+        <Label x:Name="similaritytext5" Content="" HorizontalAlignment="Left" Height="26" Margin="858,442,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.565,0.5"/>
+        <Label x:Name="similaritytext6" Content="" HorizontalAlignment="Left" Height="26" Margin="1047,442,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.51,0.577"/>
     </Grid>
 </Window>
