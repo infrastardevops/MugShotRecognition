@@ -89,16 +89,27 @@ namespace MugShotApp
             retest.Visibility = Visibility.Hidden;
             imagescountreal = 1;
 
-            if (Directory.Exists(@"C:\ProgramData\MugShotApp\"))
+            if (File.Exists(@"C:\ProgramData\MugShotApp\output.txt"))
+            {
+                outputfilebutton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                File.Create(@"C:\ProgramData\MugShotApp\output.txt");
+                outputfilebutton.Visibility = Visibility.Visible;
+            }
+
+
+                if (Directory.Exists(@"C:\ProgramData\MugShotApp\"))
             {
                 Console.WriteLine("Directory already exists.");
-                if (File.Exists(@"C:\ProgramData\MugShotApp\settings.pref"))
+                if (File.Exists(@"C:\ProgramData\MugShotApp\settings.txt"))
                 {
                     Console.WriteLine("Preferences file already exists.");
                     int counter = 0;
                     string line;
                     // Read the file and display it line by line.  
-                    System.IO.StreamReader file = new System.IO.StreamReader(@"C:\ProgramData\MugShotApp\settings.pref");
+                    System.IO.StreamReader file = new System.IO.StreamReader(@"C:\ProgramData\MugShotApp\settings.txt");
                     while ((line = file.ReadLine()) != null)
                     {
                         if (line.StartsWith(":: No. Of Images Per Screen:"))
@@ -191,7 +202,7 @@ namespace MugShotApp
                 {
                     string[] lines = { ":: No. Of Images Per Screen: 12", ":: No. Of Images To Blur: 3", ":: Hashing Method: 0", ":: No. Of Images To Select From (set one higher than the number you wish to set): 13", ":: Blur Amount: 6" };
                     string docPath = @"C:\ProgramData\MugShotApp\";
-                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "settings.pref")))
+                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "settings.txt")))
                     {
                         foreach (string line in lines)
                         outputFile.WriteLine(line);
@@ -210,7 +221,7 @@ namespace MugShotApp
                     Console.WriteLine("Created the directory.");
                     string[] lines = { ":: No. Of Images Per Screen: 12", ":: No. Of Images To Blur: 3", ":: Hashing Method: 0", ":: No. Of Images To Select From (set one higher than the number you wish to set): 13", ":: Blur Amount: 6" };
                     string docPath = @"C:\ProgramData\MugShotApp\";
-                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "settings.pref")))
+                    using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "settings.txt")))
                     {
                         foreach (string line in lines)
                             outputFile.WriteLine(line);
@@ -295,6 +306,31 @@ namespace MugShotApp
 
         void comparehashes ()
         {
+            try
+            {
+                if (File.Exists(@"C:\ProgramData\MugShotApp\output.txt"))
+                {
+                    // Do nothing.
+                }
+                else
+                {
+                    try
+                    {
+                        File.Create(@"C:\ProgramData\MugShotApp\output.txt");
+                    }
+                    catch(Exception e)
+                    {
+                        File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "FAILED TO CREATED OUTPUT FILE. REASON: " + e);
+                    }
+                }
+
+
+            }
+            catch(Exception e)
+            {
+                File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "FAILED TO DETECT FILE. REASON: " + e);
+            }
+
             calchashesbutton.Visibility = Visibility.Hidden;
             statustext.Content = "Comparing image hashes against originals..";
             File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "RE-COMPARING HASHES");
@@ -311,7 +347,16 @@ namespace MugShotApp
                 Console.WriteLine(filename2);
                 ulong imageHash2 = hashAlgorithm.Hash(stream2);
                 double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
-                similaritytext1.Content = percentageImageSimilarity.ToString();
+                if (percentageImageSimilarity > 50)
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was not recognised.");
+                }
                 statustext.Content = "Comparison completed.";
                 image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
                 image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
@@ -330,13 +375,31 @@ namespace MugShotApp
                 Console.WriteLine(filename2);
                 ulong imageHash2 = hashAlgorithm.Hash(stream2);
                 double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
-                similaritytext1.Content = percentageImageSimilarity.ToString();
+                if (percentageImageSimilarity > 50)
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was not recognised.");
+                }
                 var stream3 = File.OpenRead(filename3);
                 ulong imageHash3 = hashAlgorithm.Hash(stream3);
                 var stream4 = File.OpenRead(filename4);
                 ulong imageHash4 = hashAlgorithm.Hash(stream4);
                 double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
-                similaritytext2.Content = percentageImageSimilarity2.ToString();
+                if (percentageImageSimilarity2 > 50)
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was not recognised.");
+                }
                 statustext.Content = "Comparison completed.";
                 image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
                 image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
@@ -360,19 +423,46 @@ namespace MugShotApp
                 Console.WriteLine(filename2);
                 ulong imageHash2 = hashAlgorithm.Hash(stream2);
                 double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
-                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+                if (percentageImageSimilarity > 50)
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was not recognised.");
+                }
                 var stream3 = File.OpenRead(filename3);
                 ulong imageHash3 = hashAlgorithm.Hash(stream3);
                 var stream4 = File.OpenRead(filename4);
                 ulong imageHash4 = hashAlgorithm.Hash(stream4);
                 double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
-                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+                if (percentageImageSimilarity2 > 50)
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was not recognised.");
+                }
                 var stream5 = File.OpenRead(filename5);
                 ulong imageHash5 = hashAlgorithm.Hash(stream5);
                 var stream6 = File.OpenRead(filename6);
                 ulong imageHash6 = hashAlgorithm.Hash(stream6);
                 double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
-                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+                if (percentageImageSimilarity3 > 50)
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 3_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 3_blured.png was not recognised.");
+                }
                 image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
                 image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
                 image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
@@ -400,25 +490,61 @@ namespace MugShotApp
                 Console.WriteLine(filename2);
                 ulong imageHash2 = hashAlgorithm.Hash(stream2);
                 double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
-                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+                if (percentageImageSimilarity > 50)
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was not recognised.");
+                }
                 var stream3 = File.OpenRead(filename3);
                 ulong imageHash3 = hashAlgorithm.Hash(stream3);
                 var stream4 = File.OpenRead(filename4);
                 ulong imageHash4 = hashAlgorithm.Hash(stream4);
                 double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
-                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+                if (percentageImageSimilarity2 > 50)
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was not recognised.");
+                }
                 var stream5 = File.OpenRead(filename5);
                 ulong imageHash5 = hashAlgorithm.Hash(stream5);
                 var stream6 = File.OpenRead(filename6);
                 ulong imageHash6 = hashAlgorithm.Hash(stream6);
                 double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
-                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+                if (percentageImageSimilarity3 > 50)
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 3_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 3_blured.png was not recognised.");
+                }
                 var stream7 = File.OpenRead(filename7);
                 ulong imageHash7 = hashAlgorithm.Hash(stream7);
                 var stream8 = File.OpenRead(filename8);
                 ulong imageHash8 = hashAlgorithm.Hash(stream8);
                 double percentageImageSimilarity4 = CompareHash.Similarity(imageHash7, imageHash8);
-                similaritytext4.Content = percentageImageSimilarity4.ToString() + "%";
+                if (percentageImageSimilarity4 > 50)
+                {
+                    similaritytext4.Content = percentageImageSimilarity4.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 4_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext4.Content = percentageImageSimilarity4.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 4_blured.png was not recognised.");
+                }
                 image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
                 image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
                 image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
@@ -449,31 +575,76 @@ namespace MugShotApp
                 Console.WriteLine(filename2);
                 ulong imageHash2 = hashAlgorithm.Hash(stream2);
                 double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
-                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+                if (percentageImageSimilarity > 50)
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was not recognised.");
+                }
                 var stream3 = File.OpenRead(filename3);
                 ulong imageHash3 = hashAlgorithm.Hash(stream3);
                 var stream4 = File.OpenRead(filename4);
                 ulong imageHash4 = hashAlgorithm.Hash(stream4);
                 double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
-                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+                if (percentageImageSimilarity2 > 50)
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was not recognised.");
+                }
                 var stream5 = File.OpenRead(filename5);
                 ulong imageHash5 = hashAlgorithm.Hash(stream5);
                 var stream6 = File.OpenRead(filename6);
                 ulong imageHash6 = hashAlgorithm.Hash(stream6);
                 double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
-                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+                if (percentageImageSimilarity3 > 50)
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 3_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 3_blured.png was not recognised.");
+                }
                 var stream7 = File.OpenRead(filename7);
                 ulong imageHash7 = hashAlgorithm.Hash(stream7);
                 var stream8 = File.OpenRead(filename8);
                 ulong imageHash8 = hashAlgorithm.Hash(stream8);
                 double percentageImageSimilarity4 = CompareHash.Similarity(imageHash7, imageHash8);
-                similaritytext4.Content = percentageImageSimilarity4.ToString() + "%";
+                if (percentageImageSimilarity4 > 50)
+                {
+                    similaritytext4.Content = percentageImageSimilarity4.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 4_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext4.Content = percentageImageSimilarity4.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 4_blured.png was not recognised.");
+                }
                 var stream9 = File.OpenRead(filename9);
                 ulong imageHash9 = hashAlgorithm.Hash(stream9);
                 var stream10 = File.OpenRead(filename10);
                 ulong imageHash10 = hashAlgorithm.Hash(stream10);
                 double percentageImageSimilarity5 = CompareHash.Similarity(imageHash9, imageHash10);
-                similaritytext5.Content = percentageImageSimilarity5.ToString() + "%";
+                if (percentageImageSimilarity5 > 50)
+                {
+                    similaritytext5.Content = percentageImageSimilarity5.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 5_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext5.Content = percentageImageSimilarity5.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 5_blured.png was not recognised.");
+                }
                 image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
                 image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
                 image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
@@ -508,37 +679,91 @@ namespace MugShotApp
                 Console.WriteLine(filename2);
                 ulong imageHash2 = hashAlgorithm.Hash(stream2);
                 double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
-                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+                if (percentageImageSimilarity > 50)
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was correctly recognised."); 
+                }
+                else
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 1_blured.png was not recognised.");
+                }
                 var stream3 = File.OpenRead(filename3);
                 ulong imageHash3 = hashAlgorithm.Hash(stream3);
                 var stream4 = File.OpenRead(filename4);
                 ulong imageHash4 = hashAlgorithm.Hash(stream4);
                 double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
-                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+                if (percentageImageSimilarity2 > 50)
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was correctly recognised."); 
+                }
+                else
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 2_blured.png was not recognised."); ;
+                }
                 var stream5 = File.OpenRead(filename5);
                 ulong imageHash5 = hashAlgorithm.Hash(stream5);
                 var stream6 = File.OpenRead(filename6);
                 ulong imageHash6 = hashAlgorithm.Hash(stream6);
                 double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
-                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+                if (percentageImageSimilarity3 > 50)
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 3_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 3_blured.png was not recognised.");
+                }
                 var stream7 = File.OpenRead(filename7);
                 ulong imageHash7 = hashAlgorithm.Hash(stream7);
                 var stream8 = File.OpenRead(filename8);
                 ulong imageHash8 = hashAlgorithm.Hash(stream8);
                 double percentageImageSimilarity4 = CompareHash.Similarity(imageHash7, imageHash8);
-                similaritytext4.Content = percentageImageSimilarity4.ToString() + "%";
+                if (percentageImageSimilarity4 > 50)
+                {
+                    similaritytext4.Content = percentageImageSimilarity4.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 4_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext4.Content = percentageImageSimilarity4.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 4_blured.png was not recognised.");
+                }
                 var stream9 = File.OpenRead(filename9);
                 ulong imageHash9 = hashAlgorithm.Hash(stream9);
                 var stream10 = File.OpenRead(filename10);
                 ulong imageHash10 = hashAlgorithm.Hash(stream10);
                 double percentageImageSimilarity5 = CompareHash.Similarity(imageHash9, imageHash10);
-                similaritytext5.Content = percentageImageSimilarity5.ToString() + "%";
+                if (percentageImageSimilarity5 > 50)
+                {
+                    similaritytext5.Content = percentageImageSimilarity5.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 5_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext5.Content = percentageImageSimilarity5.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 5_blured.png was not recognised.");
+                }
                 var stream11 = File.OpenRead(filename11);
                 ulong imageHash11 = hashAlgorithm.Hash(stream11);
                 var stream12 = File.OpenRead(filename12);
                 ulong imageHash12 = hashAlgorithm.Hash(stream12);
                 double percentageImageSimilarity6 = CompareHash.Similarity(imageHash11, imageHash12);
-                similaritytext6.Content = percentageImageSimilarity6.ToString() + "%";
+                if (percentageImageSimilarity6 > 50)
+                {
+                    similaritytext6.Content = percentageImageSimilarity6.ToString() + "% (Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 6_blured.png was correctly recognised.");
+                }
+                else
+                {
+                    similaritytext6.Content = percentageImageSimilarity6.ToString() + "% (NOT Recognised)";
+                    File.AppendAllText(@"C:\ProgramData\MugShotApp\output.txt", "\n [" + DateTime.Now.ToString() + "] 6_blured.png was not recognised.");
+                }
                 image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
                 image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
                 image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
@@ -569,19 +794,40 @@ namespace MugShotApp
                 Console.WriteLine(filename2);
                 ulong imageHash2 = hashAlgorithm.Hash(stream2);
                 double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2);
-                similaritytext1.Content = percentageImageSimilarity.ToString() + "%";
+                if (percentageImageSimilarity > 50)
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (Recognised)";
+                }
+                else
+                {
+                    similaritytext1.Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
+                }
                 var stream3 = File.OpenRead(filename3);
                 ulong imageHash3 = hashAlgorithm.Hash(stream3);
                 var stream4 = File.OpenRead(filename4);
                 ulong imageHash4 = hashAlgorithm.Hash(stream4);
                 double percentageImageSimilarity2 = CompareHash.Similarity(imageHash3, imageHash4);
-                similaritytext2.Content = percentageImageSimilarity2.ToString() + "%";
+                if (percentageImageSimilarity2 > 50)
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (Recognised)";
+                }
+                else
+                {
+                    similaritytext2.Content = percentageImageSimilarity2.ToString() + "% (NOT Recognised)";
+                }
                 var stream5 = File.OpenRead(filename5);
                 ulong imageHash5 = hashAlgorithm.Hash(stream5);
                 var stream6 = File.OpenRead(filename6);
                 ulong imageHash6 = hashAlgorithm.Hash(stream6);
                 double percentageImageSimilarity3 = CompareHash.Similarity(imageHash5, imageHash6);
-                similaritytext3.Content = percentageImageSimilarity3.ToString() + "%";
+                if (percentageImageSimilarity3 > 50)
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (Recognised)";
+                }
+                else
+                {
+                    similaritytext3.Content = percentageImageSimilarity3.ToString() + "% (NOT Recognised)";
+                }
                 image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
                 image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
                 image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
@@ -589,12 +835,6 @@ namespace MugShotApp
                 image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png"));
                 image9.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
                 statustext.Content = "Comparison completed.";
-                image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum1 + ".png")); // Get the file name of the randomly blured original image.
-                image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
-                image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum2 + ".png"));
-                image8.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
-                image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + randomblurimagenum3 + ".png"));
-                image9.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
                 retest.Visibility = Visibility.Visible;
 
                 File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "INVALID SETTING: NUMOFIMAGESTOBLUR");
@@ -1343,6 +1583,19 @@ namespace MugShotApp
         private void retest_Click_1(object sender, RoutedEventArgs e)
         {
             recheckhash();
+        }
+
+        private void outputfilebutton_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(@"C:\ProgramData\MugShotApp\output.txt"))
+            {
+                System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\output.txt");
+            }
+            else
+            {
+                File.Create(@"C:\ProgramData\MugShotApp\output.txt");
+                System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\output.txt");
+            }
         }
     }
 }

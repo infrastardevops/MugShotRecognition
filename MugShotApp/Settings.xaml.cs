@@ -25,12 +25,12 @@ namespace MugShotApp
 
         void checksettingsfile ()
         {
-            if (File.Exists(@"C:\ProgramData\MugShotApp\settings.pref"))
+            if (File.Exists(@"C:\ProgramData\MugShotApp\settings.txt"))
             {
                 statustext.Content = "File exists.";
                 try
                 {
-                    System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.pref");
+                    System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.txt");
                     File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "OPENED SETTINGS");
                 }
                 catch(Exception e)
@@ -43,7 +43,7 @@ namespace MugShotApp
             {
                 string[] lines = { ":: No. Of Images Per Screen: 12", ":: No. Of Images To Blur: 3", ":: Hashing Method: 0", ":: No. Of Images To Select From (set one higher than the number you wish to set): 13", ":: Blur Amount: 6" };
                 string docPath = @"C:\ProgramData\MugShotApp\";
-                using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "settings.pref")))
+                using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "settings.txt")))
                 {
                     foreach (string line in lines)
                         outputFile.WriteLine(line);
@@ -51,7 +51,7 @@ namespace MugShotApp
                 statustext.Content = "File does not exist. Created a new one.";
                 try
                 {
-                    System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.pref");
+                    System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.txt");
                     File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "OPENED SETTINGS FILE");
                 }
                 catch(Exception e)
@@ -66,7 +66,7 @@ namespace MugShotApp
         {
             try
             {
-                System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.pref");
+                System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.txt");
             }
             catch(Exception b)
             {

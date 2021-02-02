@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MugShotApp"
         mc:Ignorable="d"
-        Title="ERROR" Height="80.223" Width="249.095" ResizeMode="NoResize">
+        Title="ERROR" Height="80.223" Width="249.095" ResizeMode="NoResize" Icon="icon.png">
     <Grid>
         <Label Content="The application encountered an issue." HorizontalAlignment="Left" Height="31" Margin="10,10,0,0" VerticalAlignment="Top" Width="221"/>
 

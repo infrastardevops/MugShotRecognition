@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MugShotApp"
         mc:Ignorable="d"
-        Title="Detected Images" Height="450" Width="533.008" ResizeMode="NoResize">
+        Title="Detected Images" Height="450" Width="533.008" ResizeMode="NoResize" Icon="icon.png">
     <Grid>
         <Button Content="Open Images Folder" HorizontalAlignment="Left" Height="36" Margin="364,366,0,0" VerticalAlignment="Top" Width="140" Click="Button_Click"/>
         <Label Content="Images Database" HorizontalAlignment="Left" Height="42" Margin="349,10,0,0" VerticalAlignment="Top" Width="168" FontSize="20"/>
