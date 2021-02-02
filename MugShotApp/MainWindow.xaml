@@ -22,7 +22,7 @@
         <Image x:Name="image10" HorizontalAlignment="Left" Height="210" Margin="641,482,0,0" VerticalAlignment="Top" Width="178"/>
         <Image x:Name="image11" HorizontalAlignment="Left" Height="210" Margin="824,482,0,0" VerticalAlignment="Top" Width="178"/>
         <Image x:Name="image12" HorizontalAlignment="Left" Height="210" Margin="1007,482,0,0" VerticalAlignment="Top" Width="178"/>
-        <Label Content="Mug Shop Recognition" HorizontalAlignment="Left" Height="51" Margin="10,48,0,0" VerticalAlignment="Top" Width="300" FontSize="28"/>
+        <Label Content="Mugshot Recognition" HorizontalAlignment="Left" Height="51" Margin="10,48,0,0" VerticalAlignment="Top" Width="300" FontSize="28"/>
         <Label x:Name="image1hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="112,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image2hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="298,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="hashmodetext" Content="Hashing Mode: " HorizontalAlignment="Left" Height="26" Margin="10,99,0,0" VerticalAlignment="Top" Width="241"/>

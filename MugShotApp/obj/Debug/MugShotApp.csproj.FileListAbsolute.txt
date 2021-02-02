@@ -30,3 +30,7 @@ C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\ERROR.g.cs
 C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\ERROR.baml
 C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\NeedToAddImages.g.cs
 C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\NeedToAddImages.baml
+C:\Users\alexa\source\repos\MugShotApp\MugShotApp\bin\Debug\MugShotApp.exe.manifest
+C:\Users\alexa\source\repos\MugShotApp\MugShotApp\bin\Debug\MugShotApp.application
+C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\MugShotApp.exe.manifest
+C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\MugShotApp.application
