@@ -1,0 +1,15 @@
+﻿<Window x:Class="MugShotApp.NeedToAddImages"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MugShotApp"
+        mc:Ignorable="d"
+        Title="Please add your images.." Height="137.329" Width="682.289" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="In order for the application to work, you must provide it with the adequate amount of images based on your settings." HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="641"/>
+        <Button Content="Open Images Folder" HorizontalAlignment="Left" Height="45" Margin="10,45,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>
+        <Button Content="Open Settings File" HorizontalAlignment="Left" Height="45" Margin="137,45,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click_1"/>
+
+    </Grid>
+</Window>
