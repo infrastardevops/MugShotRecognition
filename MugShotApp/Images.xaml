@@ -1,0 +1,25 @@
+﻿<Window x:Class="MugShotApp.Images"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MugShotApp"
+        mc:Ignorable="d"
+        Title="Detected Images" Height="450" Width="533.008" ResizeMode="NoResize">
+    <Grid>
+        <Button Content="Open Images Folder" HorizontalAlignment="Left" Height="36" Margin="364,366,0,0" VerticalAlignment="Top" Width="140" Click="Button_Click"/>
+        <Label Content="Images Database" HorizontalAlignment="Left" Height="42" Margin="349,10,0,0" VerticalAlignment="Top" Width="168" FontSize="20"/>
+        <TextBox x:Name="imageslist" IsEnabled="False" HorizontalAlignment="Left" Height="366" Margin="10,36,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="201"/>
+        <Label Content="Found Images" HorizontalAlignment="Left" Height="27" Margin="9,8,0,0" VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="1.381"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.289"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+
+    </Grid>
+</Window>

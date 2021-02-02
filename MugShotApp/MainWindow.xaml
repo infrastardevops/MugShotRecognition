@@ -23,21 +23,21 @@
         <Image x:Name="image11" HorizontalAlignment="Left" Height="210" Margin="824,482,0,0" VerticalAlignment="Top" Width="178"/>
         <Image x:Name="image12" HorizontalAlignment="Left" Height="210" Margin="1007,482,0,0" VerticalAlignment="Top" Width="178"/>
         <Label Content="Mugshot Recognition" HorizontalAlignment="Left" Height="51" Margin="10,48,0,0" VerticalAlignment="Top" Width="300" FontSize="28"/>
-        <Label x:Name="image1hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="112,406,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image2hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="298,406,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image1hash" Content="" HorizontalAlignment="Left" Height="26" Margin="112,406,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image2hash" Content="" HorizontalAlignment="Left" Height="26" Margin="298,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="hashmodetext" Content="Hashing Mode: " HorizontalAlignment="Left" Height="26" Margin="10,99,0,0" VerticalAlignment="Top" Width="241"/>
-        <Label x:Name="image3hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="475,406,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image4hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="655,406,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image5hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="844,406,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image6hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="1019,406,0,0" VerticalAlignment="Top" Width="148"/>
-        <Button Content="Open Images Folder" HorizontalAlignment="Left" Height="45" Margin="1150,106,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click_1"/>
-        <Button Content="Open Settings File" HorizontalAlignment="Left" Height="45" Margin="1150,56,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click_2"/>
-        <Label x:Name="image7hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="112,697,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image8hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="298,697,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image9hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="475,697,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image10hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="655,697,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image11hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="844,697,0,0" VerticalAlignment="Top" Width="148"/>
-        <Label x:Name="image12hash" Content="hash" HorizontalAlignment="Left" Height="26" Margin="1019,697,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image3hash" Content="" HorizontalAlignment="Left" Height="26" Margin="475,406,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image4hash" Content="" HorizontalAlignment="Left" Height="26" Margin="655,406,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image5hash" Content="" HorizontalAlignment="Left" Height="26" Margin="844,406,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image6hash" Content="" HorizontalAlignment="Left" Height="26" Margin="1019,406,0,0" VerticalAlignment="Top" Width="148"/>
+        <Button Content="Images" HorizontalAlignment="Left" Height="31" Margin="1193,84,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click_1"/>
+        <Button Content="Settings" HorizontalAlignment="Left" Height="31" Margin="1193,48,0,0" VerticalAlignment="Top" Width="84" Click="Button_Click_2"/>
+        <Label x:Name="image7hash" Content="" HorizontalAlignment="Left" Height="26" Margin="112,697,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image8hash" Content="" HorizontalAlignment="Left" Height="26" Margin="298,697,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image9hash" Content="" HorizontalAlignment="Left" Height="26" Margin="475,697,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image10hash" Content="" HorizontalAlignment="Left" Height="26" Margin="655,697,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image11hash" Content="" HorizontalAlignment="Left" Height="26" Margin="844,697,0,0" VerticalAlignment="Top" Width="148"/>
+        <Label x:Name="image12hash" Content="" HorizontalAlignment="Left" Height="26" Margin="1019,697,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="rangetext" Content="Image Range: " HorizontalAlignment="Left" Height="26" Margin="10,125,0,0" VerticalAlignment="Top" Width="192"/>
         <Label Content="Alexander Walford 2021" HorizontalAlignment="Left" Height="25" Margin="10,5,0,0" VerticalAlignment="Top" Width="162" Foreground="White"/>
         <Rectangle Fill="#FF2C2C2C" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="1282" Margin="0,790,0,-1"/>
@@ -46,6 +46,8 @@
         <Button x:Name="blurbutton" Content="Blur Images" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="Button_Click_3"/>
         <Button x:Name="checkagain" Content="Re-Check Hashes" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="checkagain_Click"/>
         <Button x:Name="calchashesbutton" Content="Check Differences" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="calchashesbutton_Click"/>
+        <Button x:Name="retest" Content="Start Over" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="retest_Click"/>
+        <Button x:Name="manualcheck" Content="Manually Recheck Hashes" HorizontalAlignment="Left" Height="25" Margin="1040,51,0,0" VerticalAlignment="Top" Width="148" Click="retest_Click_1"/>
         <Label x:Name="similaritytext1" Content="" HorizontalAlignment="Left" Height="26" Margin="138,442,0,0" VerticalAlignment="Top" Width="100"/>
         <Label x:Name="similaritytext2" Content="" HorizontalAlignment="Left" Height="26" Margin="320,442,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.565,0.5"/>
         <Label x:Name="similaritytext3" Content="" HorizontalAlignment="Left" Height="26" Margin="506,442,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.565,0.5"/>

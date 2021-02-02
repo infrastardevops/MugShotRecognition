@@ -34,3 +34,7 @@ C:\Users\alexa\source\repos\MugShotApp\MugShotApp\bin\Debug\MugShotApp.exe.manif
 C:\Users\alexa\source\repos\MugShotApp\MugShotApp\bin\Debug\MugShotApp.application
 C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\MugShotApp.exe.manifest
 C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\MugShotApp.application
+C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\Images.g.cs
+C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\Settings.g.cs
+C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\Images.baml
+C:\Users\alexa\source\repos\MugShotApp\MugShotApp\obj\Debug\Settings.baml
