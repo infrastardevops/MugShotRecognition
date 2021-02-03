@@ -84,7 +84,7 @@ namespace MugShotApp
             }
         }
 
-        void getprefs ()
+        async void getprefs ()
         {
             retest.Visibility = Visibility.Hidden;
             imagescountreal = 1;
@@ -100,8 +100,7 @@ namespace MugShotApp
             }
 
 
-                if (Directory.Exists(@"C:\ProgramData\MugShotApp\"))
-            {
+                if (Directory.Exists(@"C:\ProgramData\MugShotApp\")) {
                 Console.WriteLine("Directory already exists.");
                 if (File.Exists(@"C:\ProgramData\MugShotApp\settings.txt"))
                 {
@@ -196,6 +195,7 @@ namespace MugShotApp
                     Console.WriteLine(numperscreen);
                     Console.WriteLine(numofimagesblur);
                     Console.WriteLine(hashmethod);
+                    await Task.Delay(5000);
                     calchash();
                 }
                 else
@@ -209,6 +209,7 @@ namespace MugShotApp
                     }
                     Console.WriteLine("Created the preferences file.");
                     statustext.Content = "Created preferences file..";
+                    await Task.Delay(5000);
                     getprefs();
                 }
             }
@@ -228,6 +229,7 @@ namespace MugShotApp
                     }
                     Console.WriteLine("Created the preferences file.");
                     statustext.Content = "Created the preferences file..";
+                    await Task.Delay(5000);
                     getprefs();
                 }
                 catch
@@ -959,7 +961,7 @@ namespace MugShotApp
                 }
             }
         }
-        void DifferenceHash()
+        async void DifferenceHash()
         {
             Console.WriteLine("(DifferenceHash)");
             int stopat = numperscreen + 1;
@@ -970,6 +972,8 @@ namespace MugShotApp
                 File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "HASHING COMPLETED");
                 blurbutton.Visibility = Visibility.Visible;
                 imagescountreal = 1;
+                await Task.Delay(5000);
+                blur();
             }
 
             else
@@ -1077,7 +1081,7 @@ namespace MugShotApp
                 }
             }
         }
-        void PerceptualHash()
+        async void PerceptualHash()
         {
             Console.WriteLine("(PerceptualHash)");
             int stopat = numperscreen + 1;
@@ -1088,6 +1092,8 @@ namespace MugShotApp
                 File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "HASHING COMPLETED");
                 blurbutton.Visibility = Visibility.Visible;
                 imagescountreal = 1;
+                await Task.Delay(5000);
+                blur();
             }
             else
             {
@@ -1195,7 +1201,7 @@ namespace MugShotApp
                 }
             }
         }
-        void blur ()
+        async void blur ()
         {
             File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "STARTED BLURING");
             blurbutton.Visibility = Visibility.Hidden;
@@ -1356,6 +1362,8 @@ namespace MugShotApp
             }
             statustext.Content = "The images have been blurred. Waiting for user interaction..";
             checkagain.Visibility = Visibility.Visible;
+            await Task.Delay(5000);
+            recheckhash();
         }
 
         private static Bitmap Blur(Bitmap image, Int32 blurSize)
@@ -1420,7 +1428,7 @@ namespace MugShotApp
             return blurred;
         }
 
-        void recheckhash ()
+        async void recheckhash ()
         {
             checkagain.Visibility = Visibility.Hidden;
             statustext.Content = "Re-Checking new hash values for the images..";
@@ -1432,6 +1440,8 @@ namespace MugShotApp
                 File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "RE-HASHING COMEPLETED");
                 imagescountreal = 0;
                 calchashesbutton.Visibility = Visibility.Visible;
+                await Task.Delay(5000);
+                comparehashes();
             }
             else
             {
