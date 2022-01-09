@@ -30,7 +30,6 @@ namespace MugShotApp
                 statustext.Content = "File exists.";
                 try
                 {
-                    System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.txt");
                     File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "OPENED SETTINGS");
                 }
                 catch(Exception e)
@@ -67,6 +66,7 @@ namespace MugShotApp
             try
             {
                 System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.txt");
+                statustext.Content = "Opened the settings file.";
             }
             catch(Exception b)
             {
@@ -85,6 +85,19 @@ namespace MugShotApp
             {
                 Console.WriteLine("Could not open the debug log file.");
             }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            // reset the settings file
+            string[] lines = { ":: No. Of Images Per Screen: 12", ":: No. Of Images To Blur: 3", ":: Hashing Method: 0", ":: No. Of Images To Select From (set one higher than the number you wish to set): 13", ":: Blur Amount: 6" };
+            string docPath = @"C:\ProgramData\MugShotApp\";
+            using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "settings.txt")))
+            {
+                foreach (string line in lines)
+                    outputFile.WriteLine(line);
+            }
+            statustext.Content = "Created new settings file.";
         }
     }
 }

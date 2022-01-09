@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace MugShotApp
 {
@@ -31,8 +32,9 @@ namespace MugShotApp
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(@"C:\ProgramData\MugShotApp\settings.pref");
-            this.Close();
+            var win = new Settings();
+            win.Show();
+            this.Hide();
         }
     }
 }

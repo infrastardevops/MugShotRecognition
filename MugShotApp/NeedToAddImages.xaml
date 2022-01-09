@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MugShotApp"
         mc:Ignorable="d"
-        Title="Please add your images.." Height="137.329" Width="682.289" ResizeMode="NoResize" Icon="icon.png">
+        Title="Please add your images.." Height="137.329" Width="682.289" ResizeMode="NoResize" Icon="warning.png" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="In order for the application to work, you must provide it with the adequate amount of images based on your settings." HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="641"/>
         <Button Content="Open Images Folder" HorizontalAlignment="Left" Height="45" Margin="10,45,0,0" VerticalAlignment="Top" Width="122" Click="Button_Click"/>

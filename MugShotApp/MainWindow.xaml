@@ -10,19 +10,19 @@
     <Grid>
         <Rectangle Fill="#FF2C2C2C" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="1282"/>
         <Button Content="X" HorizontalAlignment="Left" Height="25" Margin="1253,5,0,0" VerticalAlignment="Top" Width="24" Click="Button_Click" BorderBrush="White" Background="#FF2C2C2C" Foreground="White"/>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="209" Margin="97,192,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image2" HorizontalAlignment="Left" Height="209" Margin="280,192,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image3" HorizontalAlignment="Left" Height="209" Margin="463,192,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image4" HorizontalAlignment="Left" Height="209" Margin="641,192,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image5" HorizontalAlignment="Left" Height="209" Margin="824,192,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image6" HorizontalAlignment="Left" Height="209" Margin="1007,192,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image7" HorizontalAlignment="Left" Height="210" Margin="97,482,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image8" HorizontalAlignment="Left" Height="210" Margin="280,482,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image9" HorizontalAlignment="Left" Height="210" Margin="463,482,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image10" HorizontalAlignment="Left" Height="210" Margin="641,482,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image11" HorizontalAlignment="Left" Height="210" Margin="824,482,0,0" VerticalAlignment="Top" Width="178"/>
-        <Image x:Name="image12" HorizontalAlignment="Left" Height="210" Margin="1007,482,0,0" VerticalAlignment="Top" Width="178"/>
-        <Label Content="Mugshot Recognition" HorizontalAlignment="Left" Height="51" Margin="10,48,0,0" VerticalAlignment="Top" Width="300" FontSize="28"/>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="209" Margin="95,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image2" HorizontalAlignment="Left" Height="209" Margin="278,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image3" HorizontalAlignment="Left" Height="209" Margin="461,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image4" HorizontalAlignment="Left" Height="209" Margin="645,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image5" HorizontalAlignment="Left" Height="209" Margin="828,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image6" HorizontalAlignment="Left" Height="209" Margin="1011,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image7" HorizontalAlignment="Left" Height="210" Margin="95,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image8" HorizontalAlignment="Left" Height="210" Margin="278,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image9" HorizontalAlignment="Left" Height="210" Margin="461,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image10" HorizontalAlignment="Left" Height="210" Margin="645,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image11" HorizontalAlignment="Left" Height="210" Margin="828,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image12" HorizontalAlignment="Left" Height="210" Margin="1011,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Label Content="Mugshot Image Recognition" HorizontalAlignment="Left" Height="51" Margin="10,48,0,0" VerticalAlignment="Top" Width="377" FontSize="28"/>
         <Label x:Name="image1hash" Content="" HorizontalAlignment="Left" Height="26" Margin="112,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image2hash" Content="" HorizontalAlignment="Left" Height="26" Margin="298,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="hashmodetext" Content="Hashing Mode: " HorizontalAlignment="Left" Height="26" Margin="10,99,0,0" VerticalAlignment="Top" Width="241"/>
@@ -39,7 +39,7 @@
         <Label x:Name="image11hash" Content="" HorizontalAlignment="Left" Height="26" Margin="844,697,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image12hash" Content="" HorizontalAlignment="Left" Height="26" Margin="1019,697,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="rangetext" Content="Image Range: " HorizontalAlignment="Left" Height="26" Margin="10,125,0,0" VerticalAlignment="Top" Width="192"/>
-        <Label Content="Alexander Walford 2021" HorizontalAlignment="Left" Height="25" Margin="10,5,0,0" VerticalAlignment="Top" Width="162" Foreground="White"/>
+        <Label Content="Alexander Walford 2022" HorizontalAlignment="Left" Height="25" Margin="10,5,0,0" VerticalAlignment="Top" Width="162" Foreground="White"/>
         <Rectangle Fill="#FF2C2C2C" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="1282" Margin="0,790,0,-1"/>
         <Label Content="Application Status: " HorizontalAlignment="Left" Height="25" Margin="10,793,0,0" VerticalAlignment="Top" Width="110" Foreground="White"/>
         <Label x:Name="statustext" Content="waiting.." HorizontalAlignment="Left" Height="31" Margin="125,793,0,0" VerticalAlignment="Top" Width="554" Foreground="White"/>
