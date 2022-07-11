@@ -10,18 +10,18 @@
     <Grid>
         <Rectangle Fill="#FF2C2C2C" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="1282"/>
         <Button Content="X" HorizontalAlignment="Left" Height="25" Margin="1253,5,0,0" VerticalAlignment="Top" Width="24" Click="Button_Click" BorderBrush="White" Background="#FF2C2C2C" Foreground="White"/>
-        <Image x:Name="image1" HorizontalAlignment="Left" Height="209" Margin="95,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image2" HorizontalAlignment="Left" Height="209" Margin="278,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image3" HorizontalAlignment="Left" Height="209" Margin="461,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image4" HorizontalAlignment="Left" Height="209" Margin="645,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image5" HorizontalAlignment="Left" Height="209" Margin="828,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image6" HorizontalAlignment="Left" Height="209" Margin="1011,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image7" HorizontalAlignment="Left" Height="210" Margin="95,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image8" HorizontalAlignment="Left" Height="210" Margin="278,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image9" HorizontalAlignment="Left" Height="210" Margin="461,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image10" HorizontalAlignment="Left" Height="210" Margin="645,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image11" HorizontalAlignment="Left" Height="210" Margin="828,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
-        <Image x:Name="image12" HorizontalAlignment="Left" Height="210" Margin="1011,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com:140/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="209" Margin="95,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image2" HorizontalAlignment="Left" Height="209" Margin="278,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image3" HorizontalAlignment="Left" Height="209" Margin="461,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image4" HorizontalAlignment="Left" Height="209" Margin="645,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image5" HorizontalAlignment="Left" Height="209" Margin="828,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image6" HorizontalAlignment="Left" Height="209" Margin="1011,192,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image7" HorizontalAlignment="Left" Height="210" Margin="95,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image8" HorizontalAlignment="Left" Height="210" Margin="278,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image9" HorizontalAlignment="Left" Height="210" Margin="461,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image10" HorizontalAlignment="Left" Height="210" Margin="645,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image11" HorizontalAlignment="Left" Height="210" Margin="828,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
+        <Image x:Name="image12" HorizontalAlignment="Left" Height="210" Margin="1011,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
         <Label Content="Mugshot Image Recognition" HorizontalAlignment="Left" Height="51" Margin="10,48,0,0" VerticalAlignment="Top" Width="377" FontSize="28"/>
         <Label x:Name="image1hash" Content="" HorizontalAlignment="Left" Height="26" Margin="112,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image2hash" Content="" HorizontalAlignment="Left" Height="26" Margin="298,406,0,0" VerticalAlignment="Top" Width="148"/>
