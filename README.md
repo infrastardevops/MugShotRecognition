@@ -3,7 +3,7 @@ This project is entirely opensource and has been developed to be used in a unive
 
 ![alt text](images/scrnsht1.png)
 
-## To Do List
+## To-Do List
 - [ ] Optimise application by reducing number of branches. 
 - [ ] Add more customisation to settings.
 - [ ] Make application responsive to resolution changes.  
