@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoenM.ImageSharp.ImageHash</name>
+    </assembly>
+    <members>
+        <member name="T:CoenM.ImageHash.CompareHash">
+            <summary>
+            Utility to compare 64 bit hashes using the Hamming distance.
+            </summary>
+        </member>
+        <member name="F:CoenM.ImageHash.CompareHash.BitCounts">
+            <summary>
+            Array used for BitCount method (used in Similarity comparisons).
+            Array corresponds to the number of 1's per value.
+            ie. index 0 => byte 0x00 = 0000 0000 -> 0 high bits
+            ie. index 1 => byte 0x01 = 0000 0001 -> 1 high bit
+            ie. index 3 => byte 0x03 = 0000 0011 -> 2 high bits
+            ie. index 255 =>    0xFF = 1111 1111 -> 8 high bits
+            etc.
+            </summary>
+        </member>
+        <member name="M:CoenM.ImageHash.CompareHash.Similarity(System.UInt64,System.UInt64)">
+            <summary>
+            Returns a percentage-based similarity value between the two given hashes. The higher
+            the percentage, the closer the hashes are to being identical.
+            </summary>
+            <param name="hash1">The first hash.</param>
+            <param name="hash2">The second hash.</param>
+            <returns>The similarity percentage.</returns>
+        </member>
+        <member name="M:CoenM.ImageHash.CompareHash.Similarity(System.Byte[],System.Byte[])">
+            <summary>
+            Returns a percentage-based similarity value between the two given hashes. The higher
+            the percentage, the closer the hashes are to being identical.
+            </summary>
+            <param name="hash1">The first hash. Cannot be null and must have a length of 8.</param>
+            <param name="hash2">The second hash. Cannot be null and must have a length of 8.</param>
+            <returns>The similarity percentage.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="hash1"/> or <paramref name="hash2"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when <paramref name="hash1"/> or <paramref name="hash2"/> has a length other than <c>8</c>.</exception>
+        </member>
+        <member name="M:CoenM.ImageHash.CompareHash.BitCount(System.UInt64)">
+            <summary>Counts bits Utility function for similarity.</summary>
+            <param name="num">The hash we are counting.</param>
+            <returns>The total bit count.</returns>
+        </member>
+        <member name="T:CoenM.ImageHash.HashAlgorithms.AverageHash">
+            <summary>
+            Average hash; Calculate a hash of an image based on visual characteristics by transforming the image to an 8x8 grayscale bitmap.
+            Hash is based on each pixel compared to the bitmaps average grayscale.
+            </summary>
+            <remarks>
+            Implementation based on David Oftedal's implementation of Average Hash. Algorithm specified by Dr. Neal Krawetz.
+            See <see href="http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html"/> for more information.
+            </remarks>
+        </member>
+        <member name="M:CoenM.ImageHash.HashAlgorithms.AverageHash.Hash(SixLabors.ImageSharp.Image{SixLabors.ImageSharp.PixelFormats.Rgba32})">
+            <inheritdoc />
+        </member>
+        <member name="T:CoenM.ImageHash.HashAlgorithms.DifferenceHash">
+            <summary>
+            Difference hash; Calculate a hash of an image based on visual characteristics by transforming the image to an 9x8 grayscale bitmap.
+            Hash is based on each pixel compared to it's right neighbor pixel.
+            </summary>
+            <remarks>
+            Algorithm specified by David Oftedal and slightly adjusted by Dr. Neal Krawetz.
+            See <see href="http://www.hackerfactor.com/blog/index.php?/archives/529-Kind-of-Like-That.html"/> for more information.
+            </remarks>
+        </member>
+        <member name="M:CoenM.ImageHash.HashAlgorithms.DifferenceHash.Hash(SixLabors.ImageSharp.Image{SixLabors.ImageSharp.PixelFormats.Rgba32})">
+            <inheritdoc />
+        </member>
+        <member name="T:CoenM.ImageHash.HashAlgorithms.PerceptualHash">
+            <summary>
+            Perceptual hash; Calculate a hash of an image by first transforming the image to an 64x64 grayscale bitmap and then using the Discrete cosine transform to remove the high frequencies.
+            </summary>
+        </member>
+        <member name="M:CoenM.ImageHash.HashAlgorithms.PerceptualHash.Hash(SixLabors.ImageSharp.Image{SixLabors.ImageSharp.PixelFormats.Rgba32})">
+            <inheritdoc />
+        </member>
+        <member name="M:CoenM.ImageHash.HashAlgorithms.PerceptualHash.Dct1D(System.Collections.Generic.IReadOnlyList{System.Double})">
+            <summary>
+            One dimensional Discrete Cosine Transformation.
+            </summary>
+            <param name="values">Should be an array of doubles of length 64.</param>
+            <returns>array of doubles of length 64.</returns>
+        </member>
+        <member name="T:CoenM.ImageHash.IImageHash">
+            <summary>
+            Interface for perceptual image hashing algorithm.
+            </summary>
+        </member>
+        <member name="M:CoenM.ImageHash.IImageHash.Hash(SixLabors.ImageSharp.Image{SixLabors.ImageSharp.PixelFormats.Rgba32})">
+            <summary>Hash the image using the algorithm.</summary>
+            <param name="image">image to calculate hash from.</param>
+            <returns>hash value of the image.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="image"/> is <c>null</c>.</exception>
+        </member>
+        <member name="T:CoenM.ImageHash.ImageHashExtensions">
+            <summary>
+            Extension methods for IImageHash.
+            </summary>
+        </member>
+        <member name="M:CoenM.ImageHash.ImageHashExtensions.Hash(CoenM.ImageHash.IImageHash,System.IO.Stream)">
+            <summary>Calculate the hash of the image (stream) using the hashImplementation.</summary>
+            <param name="hashImplementation">HashImplementation to calculate the hash.</param>
+            <param name="stream">Stream should 'contain' raw image data.</param>
+            <returns>hash value.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="hashImplementation"/> or <paramref name="stream"/> is <c>null</c>.</exception>
+            <exception cref="T:SixLabors.ImageSharp.UnknownImageFormatException">Thrown when stream content cannot be loaded as an image.</exception>
+        </member>
+    </members>
+</doc>

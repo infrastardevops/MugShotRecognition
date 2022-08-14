@@ -33,7 +33,6 @@ namespace MugShotApp
         {
             InitializeComponent();
             statustext.Content = "Selecting images based on user perferences..";
-            File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "SELECTING IMAGES BASED ON USER PREFERENCES");
             getprefs();
             errorlogfile();
         }
@@ -86,6 +85,14 @@ namespace MugShotApp
 
         async void getprefs ()
         {
+            try
+            {
+                File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "SELECTING IMAGES BASED ON USER PREFERENCES");
+            }
+            catch
+            {
+            }
+
             retest.Visibility = Visibility.Hidden;
             imagescountreal = 1;
 
@@ -95,7 +102,15 @@ namespace MugShotApp
             }
             else
             {
-                File.Create(@"C:\ProgramData\MugShotApp\output.txt");
+                if (Directory.Exists(@"C:\ProgramData\MugShotApp\"))
+                {
+                    File.Create(@"C:\ProgramData\MugShotApp\output.txt");
+                }
+                else
+                {
+                    Directory.CreateDirectory(@"C:\ProgramData\MugShotApp\");
+                    File.Create(@"C:\ProgramData\MugShotApp\output.txt");
+                }
                 outputfilebutton.Visibility = Visibility.Visible;
             }
 
@@ -310,23 +325,17 @@ namespace MugShotApp
         {
             try
             {
-                if (File.Exists(@"C:\ProgramData\MugShotApp\output.txt"))
-                {
-                    // Do nothing.
-                }
-                else
+                if (!File.Exists(@"C:\ProgramData\MugShotApp\output.txt"))
                 {
                     try
                     {
                         File.Create(@"C:\ProgramData\MugShotApp\output.txt");
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         File.AppendAllText(@"C:\ProgramData\MugShotApp\debug.log", "\n " + "[" + DateTime.Now.ToString() + "]: " + "FAILED TO CREATED OUTPUT FILE. REASON: " + e);
                     }
                 }
-
-
             }
             catch(Exception e)
             {
@@ -1546,6 +1555,7 @@ namespace MugShotApp
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
