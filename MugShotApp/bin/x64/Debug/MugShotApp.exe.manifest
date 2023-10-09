@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MugShotApp.exe" size="456704">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MugShotApp.exe" size="440832">
       <assemblyIdentity name="MugShotApp" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>G+qLiuYQkp004dQzkaeFZ7Y26zAYqJXui+MNf4gDBjg=</dsig:DigestValue>
+        <dsig:DigestValue>Q1KWuik01u8+2YNl0KI5hBZ5ejbdpS446bPLLsJz/Yw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

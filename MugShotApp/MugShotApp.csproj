@@ -139,6 +139,7 @@
     <Compile Include="Images.xaml.cs">
       <DependentUpon>Images.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>

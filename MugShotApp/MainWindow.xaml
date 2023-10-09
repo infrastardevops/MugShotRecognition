@@ -22,7 +22,7 @@
         <Image x:Name="image10" HorizontalAlignment="Left" Height="210" Margin="645,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
         <Image x:Name="image11" HorizontalAlignment="Left" Height="210" Margin="828,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
         <Image x:Name="image12" HorizontalAlignment="Left" Height="210" Margin="1011,482,0,0" VerticalAlignment="Top" Width="178" Source="https://renovatesoftware.com/media/images/placeholder.png" Stretch="UniformToFill"/>
-        <Label Content="Mugshot Image Recognition" HorizontalAlignment="Left" Height="51" Margin="10,48,0,0" VerticalAlignment="Top" Width="377" FontSize="28"/>
+        <Label Content="Image Hashing Recognition" HorizontalAlignment="Left" Height="51" Margin="10,48,0,0" VerticalAlignment="Top" Width="377" FontSize="28"/>
         <Label x:Name="image1hash" Content="" HorizontalAlignment="Left" Height="26" Margin="112,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image2hash" Content="" HorizontalAlignment="Left" Height="26" Margin="298,406,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="hashmodetext" Content="Hashing Mode: " HorizontalAlignment="Left" Height="26" Margin="10,99,0,0" VerticalAlignment="Top" Width="241"/>
@@ -39,7 +39,7 @@
         <Label x:Name="image11hash" Content="" HorizontalAlignment="Left" Height="26" Margin="844,697,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="image12hash" Content="" HorizontalAlignment="Left" Height="26" Margin="1019,697,0,0" VerticalAlignment="Top" Width="148"/>
         <Label x:Name="rangetext" Content="Image Range: " HorizontalAlignment="Left" Height="26" Margin="10,125,0,0" VerticalAlignment="Top" Width="192"/>
-        <Label Content="Alexander Walford 2022" HorizontalAlignment="Left" Height="25" Margin="10,5,0,0" VerticalAlignment="Top" Width="162" Foreground="White"/>
+        <Label Content="Infrastar Limited 2023" HorizontalAlignment="Left" Height="25" Margin="10,5,0,0" VerticalAlignment="Top" Width="162" Foreground="White"/>
         <Rectangle Fill="#FF2C2C2C" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="1282" Margin="0,790,0,-1"/>
         <Label Content="Application Status: " HorizontalAlignment="Left" Height="25" Margin="10,793,0,0" VerticalAlignment="Top" Width="110" Foreground="White"/>
         <Label x:Name="statustext" Content="waiting.." HorizontalAlignment="Left" Height="31" Margin="125,793,0,0" VerticalAlignment="Top" Width="554" Foreground="White"/>
@@ -48,12 +48,12 @@
         <Button x:Name="calchashesbutton" Content="Check Differences" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="calchashesbutton_Click"/>
         <Button x:Name="retest" Content="Start Over" Visibility="Hidden" HorizontalAlignment="Left" Height="25" Margin="1140,794,0,0" VerticalAlignment="Top" Width="137" Click="retest_Click"/>
         <Button x:Name="manualcheck" Content="Manually Recheck Hashes" HorizontalAlignment="Left" Height="25" Margin="1040,51,0,0" VerticalAlignment="Top" Width="148" Click="retest_Click_1" Background="#FF2C2C2C" Foreground="White" BorderBrush="{x:Null}"/>
-        <Label x:Name="similaritytext1" Content="" HorizontalAlignment="Left" Height="26" Margin="102,437,0,0" VerticalAlignment="Top" Width="163"/>
-        <Label x:Name="similaritytext2" Content="" HorizontalAlignment="Left" Height="26" Margin="288,437,0,0" VerticalAlignment="Top" Width="158" RenderTransformOrigin="0.565,0.5"/>
-        <Label x:Name="similaritytext3" Content="" HorizontalAlignment="Left" Height="26" Margin="474,437,0,0" VerticalAlignment="Top" Width="149" RenderTransformOrigin="0.565,0.5"/>
-        <Label x:Name="similaritytext4" Content="" HorizontalAlignment="Left" Height="26" Margin="655,442,0,0" VerticalAlignment="Top" Width="138" RenderTransformOrigin="0.565,0.5"/>
-        <Label x:Name="similaritytext5" Content="" HorizontalAlignment="Left" Height="26" Margin="844,442,0,0" VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.565,0.5"/>
-        <Label x:Name="similaritytext6" Content="" HorizontalAlignment="Left" Height="26" Margin="1040,442,0,0" VerticalAlignment="Top" Width="128" RenderTransformOrigin="0.51,0.577"/>
+        <Label x:Name="similaritytext1" Content="" HorizontalAlignment="Left" Height="26" Margin="104,432,0,0" VerticalAlignment="Top" Width="164"/>
+        <Label x:Name="similaritytext2" Content="" HorizontalAlignment="Left" Height="26" Margin="293,432,0,0" VerticalAlignment="Top" Width="158" RenderTransformOrigin="0.565,0.5"/>
+        <Label x:Name="similaritytext3" Content="" HorizontalAlignment="Left" Height="26" Margin="474,432,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.565,0.5"/>
+        <Label x:Name="similaritytext4" Content="" HorizontalAlignment="Left" Height="26" Margin="664,432,0,0" VerticalAlignment="Top" Width="138" RenderTransformOrigin="0.565,0.5"/>
+        <Label x:Name="similaritytext5" Content="" HorizontalAlignment="Left" Height="26" Margin="851,432,0,0" VerticalAlignment="Top" Width="134" RenderTransformOrigin="0.565,0.5"/>
+        <Label x:Name="similaritytext6" Content="" HorizontalAlignment="Left" Height="26" Margin="1029,432,0,0" VerticalAlignment="Top" Width="128" RenderTransformOrigin="0.51,0.577"/>
         <Button x:Name="outputfilebutton" Content="Open Output File" HorizontalAlignment="Left" Visibility="Hidden" Height="25" Margin="1084,81,0,0" VerticalAlignment="Top" Width="104" Click="outputfilebutton_Click" BorderBrush="{x:Null}" Foreground="White" Background="#FF2C2C2C"/>
     </Grid>
 </Window>

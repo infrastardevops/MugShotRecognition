@@ -38,3 +38,43 @@ C:\Users\alexa\source\repos\alexanderwalford-official\MugShotRecognition\MugShot
 C:\Users\alexa\source\repos\alexanderwalford-official\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.exe.manifest
 C:\Users\alexa\source\repos\alexanderwalford-official\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.application
 C:\Users\alexa\source\repos\alexanderwalford-official\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.csproj.CopyComplete
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\MugShotApp.exe.config
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\MugShotApp.exe.manifest
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\MugShotApp.application
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\MugShotApp.exe
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\MugShotApp.pdb
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\CoenM.ImageSharp.ImageHash.dll
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\SixLabors.ImageSharp.dll
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\System.Buffers.dll
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\System.Memory.dll
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\System.Numerics.Vectors.dll
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\CoenM.ImageSharp.ImageHash.xml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\SixLabors.ImageSharp.xml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\System.Buffers.xml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\System.Memory.xml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\System.Numerics.Vectors.xml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.csproj.AssemblyReference.cache
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\ERROR.g.cs
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\Images.g.cs
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MainWindow.g.cs
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\NeedToAddImages.g.cs
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\Settings.g.cs
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\App.g.cs
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp_MarkupCompile.cache
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp_MarkupCompile.lref
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\ERROR.baml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\Images.baml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MainWindow.baml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\NeedToAddImages.baml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\Settings.baml
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.g.resources
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.Properties.Resources.resources
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.csproj.GenerateResource.cache
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.csproj.CoreCompileInputs.cache
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.exe.manifest
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.application
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.csproj.CopyComplete
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.exe
+C:\Users\Alex\OneDrive - Infrastar\Documents\GitHub\MugShotRecognition\MugShotApp\obj\x64\Debug\MugShotApp.pdb
