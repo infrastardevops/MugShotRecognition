@@ -37,7 +37,7 @@ namespace MugShotApp
         int imagerange = 13;
         int bluramount = 0;
         int maxnumofimagestoblur = 8;
-        int passmark = 75;
+        int passmark = 90;
 
         // refactored: store the randomly selected image paths, requires further implementation
         List<string> randomblurimages = new List<string>();
@@ -97,7 +97,7 @@ namespace MugShotApp
         {
             statustext.Content = "Error: No images detected.";
             var win = new NeedToAddImages(); // show the window for informing the user that they need to add images
-            logger.Log("NO IMAGES DETECTED");
+            logger.Log("[ X ] NO IMAGES DETECTED");
             win.Show();
         }
 
@@ -109,7 +109,7 @@ namespace MugShotApp
                 {
                     if (File.Exists(@"C:\ProgramData\MugShotApp\debug.log"))
                     {
-                        logger.Log("APPLICATION STARTED!"); // log the application starting
+                        logger.Log("[ ! ] APPLICATION STARTED"); // log the application starting
                     }
                     else
                     {
@@ -118,14 +118,17 @@ namespace MugShotApp
                         using (StreamWriter outputFile = new StreamWriter(System.IO.Path.Combine(docPath, "debug.log")))
                         {
                             foreach (string line in lines)
-                                outputFile.WriteLine(line);
+                            {
+                                outputFile.WriteLine(line); // write line to output file
+                            } 
                         }
                     }
                 }
-                catch
+                catch(Exception e)
                 {
                     var win = new ERROR();
                     win.Show();
+                    logger.Log("[ X ] MAJOR ERROR: " + e.Message.ToString());
                 }
             }
         }
@@ -143,7 +146,6 @@ namespace MugShotApp
             }
 
             retest.Visibility = Visibility.Hidden; // hide the re-test button
-            imagescountreal = 1;
 
             if (File.Exists(@"C:\ProgramData\MugShotApp\output.txt"))
             {
@@ -232,9 +234,16 @@ namespace MugShotApp
                                     b += line[i];
                             }
                             if (b.Length > 0)
+                            {
                                 val = int.Parse(b);
+                            }
                             imagerange = val;
-                            rangetext.Content = "Image Range: " + val;
+                            int f = val - 1;
+                            rangetext.Content = "Image Range: " + f.ToString();
+                            if (f == 12)
+                            {
+                                rangetext.Content = "Image Range: " + f.ToString() + " (default)";
+                            }
                             Console.WriteLine("No. Of Images In Database: " + val.ToString());
                         }
                         else if (line.StartsWith(":: Blur Amount:"))
@@ -261,10 +270,10 @@ namespace MugShotApp
                     }
 
                     file.Close();
-                    Console.WriteLine(numperscreen);
-                    Console.WriteLine(numofimagesblur);
-                    Console.WriteLine(hashmethod);
-                    await Task.Delay(5000);
+                    logger.Log("NUM OF IMAGES PER SCREEN: " + numperscreen.ToString());
+                    logger.Log("NUM OF IMAGES TO BLUR: " + numofimagesblur.ToString());
+                    logger.Log("HASHING METHOD: " + hashmethod.ToString());
+                    await Task.Delay(3000);
                     calchash();
                 }
                 else
@@ -280,11 +289,10 @@ namespace MugShotApp
                     }
                     Console.WriteLine("Created the preferences file.");
                     statustext.Content = "Created preferences file..";
-                    await Task.Delay(5000);
+                    await Task.Delay(3000);
                     getprefs();
                 }
             }
-
             else
             {
                 try
@@ -302,7 +310,7 @@ namespace MugShotApp
                     }
                     Console.WriteLine("Created the preferences file.");
                     statustext.Content = "Created the preferences file..";
-                    await Task.Delay(5000);
+                    await Task.Delay(3000);
                     getprefs();
                 }
                 catch
@@ -315,13 +323,13 @@ namespace MugShotApp
             }
         }
 
-
+        // detmine the hashing algorithm from the settings file
         void calchash ()
         {
-
             if (Directory.Exists(@"C:\ProgramData\MugShotApp\images\"))
             {
                 Console.WriteLine("Images folder exists.");
+                logger.Log("Found the images folder.");
 
                 // refactored
                 // determines which hashing mode to use based on the user's preferences in the settings file
@@ -398,44 +406,63 @@ namespace MugShotApp
             }
             catch(Exception e)
             {
-                logger.Log("FAILED TO DETECT FILE. REASON: " + e); // could not read the file or create it, likely a permission error
+                logger.Log("FAILED TO DETECT FILE. REASON: " + e.Message.ToString()); // could not read the file or create it, likely a permission error
             }
 
             calchashesbutton.Visibility = Visibility.Hidden; // hide the calculate hashes button
             statustext.Content = "Comparing image hashes against originals..";
             logger.Log("RE-COMPARING HASHES"); // log action
 
-            // refactorised
+            // refactored
             // iterates through the number of images to blur, renders the blurred image if required and generates the similarity hash
             if (numofimagesblur < maxnumofimagestoblur)
             {
-                foreach (string s in randomblurimages) // iterate through all the images
+                var hashAlgorithm = new AverageHash(); // new average hash object
+
+                List<string> file_names = new List<string>();
+
+                // regenerate hashes for all images on canvas and save them into a string list
+                foreach (System.Windows.Controls.Image f in image_elements)
                 {
-                    var hashAlgorithm = new AverageHash(); // new average hash object
-                    string filename = @"C:\ProgramData\MugShotApp\images\" + s + ".png";
-                    string filename2 = @"C:\ProgramData\MugShotApp\images\1_blured.png";
-                    var stream = File.OpenRead(filename); // open the filestream for the first image
-                    Console.WriteLine(filename); // print the filename
-                    ulong imageHash = hashAlgorithm.Hash(stream); // gernate the image hash for the file stream
-                    var stream2 = File.OpenRead(filename2); // create a new filestream for the comparision image
-                    Console.WriteLine(filename2); // print the second file's filename
-                    ulong imageHash2 = hashAlgorithm.Hash(stream2); // generate the hash for the second image
-                    double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2); // generate the similarity hash percentage
-                    if (percentageImageSimilarity > passmark) // likely recognised
-                    {
-                        similaritytext1.Content = percentageImageSimilarity.ToString() + "% (Recognised)";
-                        logger.LogOuput("1_blured.png was correctly recognised.");
-                    }
-                    else // not recognised
-                    {
-                        similaritytext1.Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
-                        logger.LogOuput("1_blured.png was not recognised.");
-                    }
-                    statustext.Content = "Comparison completed.";
-                    image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + s + ".png")); // Get the file name of the randomly blured original image.
-                    image7.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
-                    retest.Visibility = Visibility.Visible; // make the retest button visible
+                    string filename = f.Source.ToString().Replace("file:///", ""); // get the image path from the canvas
+                    file_names.Add(filename);
                 }
+
+                // now that we have all the paths, we can compare the hashes
+                // iterate through every element in the canvas
+                for (int i = 0; i < 6; i++) 
+                {
+                    string path1 = file_names[i]; // get the top image's path
+                    string path2 = file_names[i + 6]; // get the image below it
+
+                    var stream = File.OpenRead(path1); // open the filestream for the first image
+                    Console.WriteLine(path1); // print the filename
+                    ulong imageHash = hashAlgorithm.Hash(stream); // generate the image hash for the file stream
+                    var stream2 = File.OpenRead(path2); // create a new filestream for the comparision image
+                    Console.WriteLine(path2); // print the second file's filename
+                    ulong imageHash2 = hashAlgorithm.Hash(stream2); // generate the hash for the second image
+
+                    // generate the similarity hash percentage
+                    double percentageImageSimilarity = CompareHash.Similarity(imageHash, imageHash2); 
+                    
+                    // check if higher than the required passmark %
+                    if (percentageImageSimilarity > passmark) 
+                    {
+                        // likely recognised
+                        hash_text_elements[i].Content = percentageImageSimilarity.ToString() + "% (Recognised)";
+                        logger.LogOuput(i.ToString() + "_blurred.png was correctly recognised.");
+                    }
+                    else 
+                    {
+                        // not recognised
+                        hash_text_elements[i].Content = percentageImageSimilarity.ToString() + "% (NOT Recognised)";
+                        logger.LogOuput(i.ToString() + "_blurred.png was not recognised.");
+                    }
+                }
+                // done comparing the hashes
+                statustext.Content = "Comparison completed.";
+                logger.Log("[ ! ] COMPLETED HASH COMPARISON.");
+                retest.Visibility = Visibility.Visible; // make the retest button visible
             }
             else
             {
@@ -444,7 +471,7 @@ namespace MugShotApp
                 {
                     var hashAlgorithm = new AverageHash(); // create a new average hash object
                     string filename = @"C:\ProgramData\MugShotApp\images\" + s + ".png"; // image 1 filename
-                    string filename2 = @"C:\ProgramData\MugShotApp\images\"+ s + "_blured.png"; // image 2 filename
+                    string filename2 = @"C:\ProgramData\MugShotApp\images\"+ s + "_blurred.png"; // image 2 filename
 
                     var stream = File.OpenRead(filename); // open image 1
                     Console.WriteLine(filename); // print image 1 filename
@@ -463,8 +490,8 @@ namespace MugShotApp
                     }
 
                     // vertically compare the images
-                    image_elements[1].Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + s + ".png")); // get the file name of the randomly blured original image
-                    image_elements[lc / 2].Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\ " + s + "_blured.png")); // get the file name of the same image, but blurred and set the element horizontally below it
+                    image_elements[1].Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + s + ".png")); // get the file name of the randomly blurred original image
+                    image_elements[lc / 2].Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\ " + s + "_blurred.png")); // get the file name of the same image, but blurred and set the element horizontally below it
 
                     statustext.Content = "Comparison completed.";
                     retest.Visibility = Visibility.Visible; // show the retest button
@@ -489,7 +516,7 @@ namespace MugShotApp
             ulong imageHash = hashAlgorithm.Hash(stream); // hash the image from the file stream in a ulong variable
 
             // refactored
-            for (int i = 0; i < 11; i++) // iterate through every element
+            for (int i = 1; i < 11; i++) // iterate through every element
             { 
                 hash_text_elements[i].Content = imageHash; // set the Label content to the hash value
                 image_elements[i].Source = new BitmapImage(new Uri(filename)); // set the image source as the selected file
@@ -506,17 +533,15 @@ namespace MugShotApp
         {
             Console.WriteLine("(DifferenceHash)");
             var hashAlgorithm = new DifferenceHash(); // generate a difference hash
-            Random rnd = new Random(); // new random object
-            string numselected = rnd.Next(1, 13).ToString(); // randomly select a number between 1 and 12 and convert to a string, used for selecting the image
-            string numrange = rnd.Next(1, imagerange).ToString(); // randomly select a number between 1 and 12 and then convert it to a string, used for determining the range of the images
-            string filename = @"C:\ProgramData\MugShotApp\images\" + numrange + ".png"; // generate the filename
-            var stream = File.OpenRead(filename); // set the path string
-            Console.WriteLine(filename); // print the filename to the console
-            ulong imageHash = hashAlgorithm.Hash(stream); // hash the image from the file stream in a ulong variable
 
             // refactored
-            for (int i = 0; i < 12; i++) // iterate through every element
+            for (int i = 1; i < 12; i++) // iterate through every element
             {
+                string filename = @"C:\ProgramData\MugShotApp\images\" + i.ToString() + ".png"; // generate the filename
+                var stream = File.OpenRead(filename); // set the path string
+                Console.WriteLine(filename); // print the filename to the console
+                ulong imageHash = hashAlgorithm.Hash(stream); // hash the image from the file stream in a ulong variable
+
                 hash_text_elements[i].Content = imageHash; // set the label value as the image hash
                 image_elements[i].Source = new BitmapImage(new Uri(filename)); // set the source of the image to the filename
                 imagescountreal = i; // set the number of images that are real
@@ -526,11 +551,11 @@ namespace MugShotApp
             statustext.Content = "Hashing completed. Waiting for user interaction to blur.."; // print text to the status label
             logger.Log("DIFFERENCE HASHING COMPLETED"); // log the hashing finished
             blurbutton.Visibility = Visibility.Visible; // make the blur button visible
-            await Task.Delay(5000); // wait 5 seconds async
+            await Task.Delay(3000); // wait 5 seconds async
             blur(); // call blur function for image elements
         }
 
-        // generate the perceptual hash for each image
+        // generate the perceptual hash for each image and render it to the canvas
         async void PerceptualHash()
         {
             Console.WriteLine("(PerceptualHash)"); // print the hashing method to the console
@@ -539,26 +564,24 @@ namespace MugShotApp
             try
             {
                 var hashAlgorithm = new PerceptualHash(); // create a perceptual hash object
-                Random rnd = new Random(); // create a new random object
-                string numselected = rnd.Next(1, 13).ToString(); // randomly select a number between 1 and 12 and convert to a string, used for selecting the image 
-                string numrange = rnd.Next(1, imagerange).ToString(); // randomly select a number between 1 and 12 and then convert it to a string, used for determining the range of the images 
-                string filename = @"C:\ProgramData\MugShotApp\images\" + numrange + ".png"; // generate the filename
-                var stream = File.OpenRead(filename); // set the path string
-                Console.WriteLine(filename); // print the filename
-                ulong imageHash = hashAlgorithm.Hash(stream); // hash the image from the file stream in a ulong variable 
 
                 // refactored
-                for (int i = 0; i < 11; i++) // iterate through every element
+                for (int i = 1; i < 13; i++) // iterate through every element
                 {
-                    hash_norm_text_elements[i].Content = imageHash; // set the label value as the image hash
-                    image_elements[i].Source = new BitmapImage(new Uri(filename)); // set the source of the image to the filename
+                    string filename = @"C:\ProgramData\MugShotApp\images\" + i + ".png"; // generate the filename
+                    var stream = File.OpenRead(filename); // set the path string
+                    Console.WriteLine(filename); // print the filename
+                    ulong imageHash = hashAlgorithm.Hash(stream); // hash the image from the file stream in a ulong variable 
+
+                    hash_norm_text_elements[i - 1].Content = imageHash; // set the label value as the image hash
+                    image_elements[i - 1].Source = new BitmapImage(new Uri(filename)); // set the source of the image to the filename
                     imagescountreal = i; // set the number of images that are real
                 }
 
                 statustext.Content = "Hashing completed. Waiting for user interaction to blur..";
                 logger.Log("PERCEPTUAL HASHING COMPLETED"); // log into the log file
                 blurbutton.Visibility = Visibility.Visible; // set the blur button to visible
-                await Task.Delay(5000); // wait 5 seconds
+                await Task.Delay(3000); // wait 5 seconds
                 blur();
             }
             catch(Exception e)
@@ -585,41 +608,32 @@ namespace MugShotApp
                 // refactored
                 if (numofimagesblur < maxnumofimagestoblur) // if number of images to blur is less than max number of images to blur (within correct range)
                 {
+                    logger.Log("NUM OF IMAGES TO BLUR IS LESS THAN MAX, CONTINUE WITH DEFINED PREFERENCE");
                     Random rnd = new Random(); // new random object
-                    for (int i = 0; i < 11; i++)
+                    for (int i = 1; i < numofimagesblur + 1; i++)
                     {
                         randomblurimages.Add(rnd.Next(numofimagesblur, numperscreen).ToString());  // add a new random number to the random blur images list, using the variables for number of images to blur and number per screen as the max value
-                        Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimages[0] + ".png"); // create a new bitmap object and assign the random blur image to it
+                        Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimages[i - 1] + ".png"); // create a new bitmap object and assign the random blur image to it
                         bitmap = Blur(bitmap, bluramount); // blur the image and return the value as the original bitmap object
-                        bitmap.Save(@"C:\ProgramData\MugShotApp\images\" + numofimagesblur.ToString() + "_blured.png"); // save the bitmap blurred in the same directory as the normal images with a _blured suffix at the end
-                        image_elements[i].Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\" + numofimagesblur.ToString() + "_blured.png")); // set the image element source as the blurred image path
+                        string path = @"C:\ProgramData\MugShotApp\images\" + randomblurimages[i - 1] + "_blurred.png";
+                        if (!File.Exists(path)) // to prevent errors with generic errors in GDI+
+                        {
+                            bitmap.Save(path); // save the bitmap blurred in the same directory as the normal images with a _blurred suffix at the end
+                            // add the image path to the list
+                            randomblurimages[i] = path;
+                        }
+                        image_elements[i - 1].Source = new BitmapImage(new Uri(path)); // set the image element source as the blurred image path
                     }
                 }
                 else
                 {
-                    // out of the max range, do only 3 blurs by default
-                    Random rnd = new Random(); // create a new random object
-                    int imageselector = rnd.Next(1, numperscreen); // create a new image selector value by generating a number between 1 and the number of images to show per screen
-                    statustext.Content = "ERROR: Invalid settings detected. Bluring 3 images only. Maximum to blur is 6.";
-                    logger.Log("INVALID SETTINGS FOR BLURAMOUNT"); // invalid setting log
-                    // use the default settings method with 3 blured images:
-                    Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + imageselector + ".png");
-                    bitmap = Blur(bitmap, bluramount); // blur the image object
-                    bitmap.Save(@"C:\ProgramData\MugShotApp\images\1_blured.png");
-                    Bitmap bitmap2 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + imageselector + ".png");
-                    bitmap2 = Blur(bitmap2, bluramount); // blur the image object
-                    bitmap2.Save(@"C:\ProgramData\MugShotApp\images\2_blured.png");
-                    Bitmap bitmap3 = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + imageselector + ".png");
-                    bitmap3 = Blur(bitmap3, bluramount); // blur the image object
-                    bitmap3.Save(@"C:\ProgramData\MugShotApp\images\3_blured.png");
-                    image1.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\1_blured.png"));
-                    image2.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\2_blured.png"));
-                    image3.Source = new BitmapImage(new Uri(@"C:\ProgramData\MugShotApp\images\3_blured.png"));
+                    // invalid
+                    logger.Log("[ ! ] Invalid setting for number of images.");
                 }
 
                 statustext.Content = "The images have been blurred. Waiting for user interaction..";
                 checkagain.Visibility = Visibility.Visible; // show the check again button
-                await Task.Delay(5000);
+                await Task.Delay(3000);
                 recheckhash();
             }
             catch (Exception e)
@@ -631,14 +645,14 @@ namespace MugShotApp
 
         private static Bitmap Blur(Bitmap image, Int32 blurSize) // blur method, takes bitmap object and blursize
         {
-            return Blur(image, new Rectangle(0, 0, image.Width, image.Height), blurSize); // return the blured bitmap image object and call the main blur method
+            return Blur(image, new Rectangle(0, 0, image.Width, image.Height), blurSize); // return the blurred bitmap image object and call the main blur method
         }
 
         private unsafe static Bitmap Blur(Bitmap image, Rectangle rectangle, Int32 blurSize) // actually blurs the bitmap image, takes the formatted rectangle object as an argument
         {
             Bitmap blurred = new Bitmap(image.Width, image.Height); // create new bitmap the same size of the passed in image object
             // make an exact copy of the bitmap provided
-            using (Graphics graphics = Graphics.FromImage(blurred)) // get the windows graphics blured library
+            using (Graphics graphics = Graphics.FromImage(blurred)) // get the windows graphics blurred library
             {
                 graphics.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height), new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel); // draw the blur rectangle over the image into a new bitmap object
             }
@@ -651,7 +665,7 @@ namespace MugShotApp
             // look at every pixel in the blur rectangle
             for (int xx = rectangle.X; xx < rectangle.X + rectangle.Width; xx++)
             {
-                for (int yy = rectangle.Y; yy < rectangle.Y + rectangle.Height; yy++)
+                for (int yy = rectangle.Y; yy < rectangle.Y + rectangle.Height; yy++) // rect transform for the rectangle
                 {
                     // default vars
                     int avgR = 0, avgG = 0, avgB = 0;
@@ -688,7 +702,7 @@ namespace MugShotApp
                     }
                 }
             }
-            // Unlock the bits
+            // unlock the bits
             blurred.UnlockBits(blurredData);
             return blurred; // return the blurred BitmapData object
         }
@@ -696,39 +710,30 @@ namespace MugShotApp
         // recheck all of the image hashes
         async void recheckhash ()
         {
+            // refactored
             checkagain.Visibility = Visibility.Hidden; // make the check button visible
             statustext.Content = "Re-Checking new hash values for the images.."; // set the status label text
-            try
-            {
-                var hashAlgorithm = new PerceptualHash(); // new perceptual hash object
-                Random rnd = new Random(); // new random object
-                string numselected = rnd.Next(1, 13).ToString(); // generate the selected number from the random object range
-                string numrange = rnd.Next(1, numofimagesblur).ToString(); // generate the random range
-                string filename = @"C:\ProgramData\MugShotApp\images\" + numrange + "_blured.png"; // set te filename of the image to check
-                var stream = File.OpenRead(filename); // create filestream object with filename argument
-                Console.WriteLine(filename); // print the filename to the console
-                ulong imageHash = hashAlgorithm.Hash(stream); // hash the stream image object and save it in a ulong variable
+            logger.Log("[ ! ] RE-HASHING ALL IMAGES");
+            var hashAlgorithm = new PerceptualHash(); // new perceptual hash object
 
-                // refactored
-                for (int i = 0; i < 11; i++) // iterate through every element
-                {
-                    hash_text_elements[i].Content = imageHash; // set the label value as the image hash
-                    image_elements[i].Source = new BitmapImage(new Uri(filename)); // set the source of the image to the filename
-                    imagescountreal = i; // set the number of images that are real
-                }
-                // log for completion
-                Console.WriteLine("Re-Hashing completed.");
-                statustext.Content = "Re-Hashing completed.";
-                logger.Log("RE-HASHING COMEPLETED"); // log to file
-                calchashesbutton.Visibility = Visibility.Visible; // make the calulate hashes button visible
-                await Task.Delay(5000); // wait 5 seconds async
-                comparehashes(); // call compare hashes method
-            }
-            catch (Exception e)
+            // regenerate hashes for all images on canvas
+            int lc = 0;
+            foreach (System.Windows.Controls.Image f in image_elements)
             {
-                // error
-                Console.WriteLine("ERROR WHEN RECHECKING HASH: " + e.Message.ToString()); // print error the command line
+                string filename = f.Source.ToString().Replace("file:///", ""); // get the image path from the canvas
+                Console.WriteLine(filename); // print the filename to the console
+                var stream = File.OpenRead(filename); // create filestream object with filename argument
+                ulong imageHash = hashAlgorithm.Hash(stream); // hash the stream image object and save it in a ulong variable
+                hash_norm_text_elements[lc].Content = imageHash; // set the label value as the image hash
+                lc = lc + 1;
             }
+
+            // log for completion
+            statustext.Content = "Re-Hashing completed.";
+            logger.Log("RE-HASHING COMEPLETED"); // log to file
+            calchashesbutton.Visibility = Visibility.Visible; // make the calulate hashes button visible
+            await Task.Delay(3000); // wait 5 seconds async
+            comparehashes(); // call compare hashes method
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -738,6 +743,7 @@ namespace MugShotApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            logger.Log("[ ! ] APPLICATION SHUTDOWN..");
             this.Close();
             System.Windows.Application.Current.Shutdown(); // close button
         }
