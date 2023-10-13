@@ -17,7 +17,7 @@ namespace MugShotApp
     // Alexander Walford 2021
     // Mugshot Image Recognition App For C# WPF
 
-    // Liscenced for use by Infrastar LTD 2023 through the creative commons attribute by Alexander Walford.
+    // Licensed for use by Infrastar LTD 2023 through the creative commons attribute by Alexander Walford.
 
     public partial class MainWindow : Window
     {
@@ -610,19 +610,19 @@ namespace MugShotApp
                 {
                     logger.Log("NUM OF IMAGES TO BLUR IS LESS THAN MAX, CONTINUE WITH DEFINED PREFERENCE");
                     Random rnd = new Random(); // new random object
-                    for (int i = 1; i < numofimagesblur + 1; i++)
+                    for (int i = 0; i < numofimagesblur + 1; i++)
                     {
                         randomblurimages.Add(rnd.Next(numofimagesblur, numperscreen).ToString());  // add a new random number to the random blur images list, using the variables for number of images to blur and number per screen as the max value
-                        Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimages[i - 1] + ".png"); // create a new bitmap object and assign the random blur image to it
+                        Bitmap bitmap = new Bitmap(@"C:\ProgramData\MugShotApp\images\" + randomblurimages[i] + ".png"); // create a new bitmap object and assign the random blur image to it
                         bitmap = Blur(bitmap, bluramount); // blur the image and return the value as the original bitmap object
-                        string path = @"C:\ProgramData\MugShotApp\images\" + randomblurimages[i - 1] + "_blurred.png";
+                        string path = @"C:\ProgramData\MugShotApp\images\" + randomblurimages[i] + "_blurred.png";
                         if (!File.Exists(path)) // to prevent errors with generic errors in GDI+
                         {
                             bitmap.Save(path); // save the bitmap blurred in the same directory as the normal images with a _blurred suffix at the end
                             // add the image path to the list
                             randomblurimages[i] = path;
                         }
-                        image_elements[i - 1].Source = new BitmapImage(new Uri(path)); // set the image element source as the blurred image path
+                        image_elements[i].Source = new BitmapImage(new Uri(path)); // set the image element source as the blurred image path
                     }
                 }
                 else
